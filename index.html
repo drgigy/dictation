@@ -1,0 +1,2757 @@
+<!DOCTYPE html>
+<!-- saved from url=(0054)file:///Users/gigy/Downloads/woyz-v2-prototype_64.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WOYZ — New Layout Prototype</title>
+<link href="file:///Users/gigy/Downloads/WOYZ%20%E2%80%94%20New%20Layout%20Prototype%20may%2013%20latest%20_files/css2" rel="stylesheet">
+<style>
+:root {
+  --navy:    #141e2d;
+  --navy2:   #1c2b3d;
+  --navy3:   #243448;
+  --blue:    #2563a8;
+  --blue2:   #3b82c4;
+  --glow:    #60a5fa;
+  --gold:    #d4a847;
+  --cream:   #f5f7fa;
+  --white:   #ffffff;
+  --ink:     #0f1822;
+  --ink2:    #374151;
+  --ink3:    #6b7280;
+  --border:  #e2e8f0;
+  --red:     #dc2626;
+  --green:   #16a34a;
+  --surface: #f0f3f7;
+  --active:  rgba(37,99,168,0.10);
+  --active-border: #2563a8;
+}
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html, body { height:100%; overflow:hidden; font-family:'DM Sans',sans-serif; background:var(--navy); color:var(--ink); }
+
+/* ── HEADER ── */
+header {
+  position: fixed; top:0; left:0; right:0; height:52px;
+  background: var(--navy);
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 20px; z-index:100;
+}
+.logo {
+  display:flex; align-items:center; gap:9px;
+}
+.logo-mark {
+  width:28px; height:28px;
+  background: linear-gradient(135deg, var(--gold), #f0c855);
+  border-radius:7px;
+  display:flex; align-items:center; justify-content:center;
+  font-size:14px;
+}
+.logo-text {
+  font-family:'Fraunces',serif;
+  font-size:18px; font-weight:600;
+  color:var(--white); letter-spacing:-0.02em;
+}
+.logo-text em { color:var(--gold); font-style:normal; }
+.header-right { display:flex; align-items:center; gap:10px; }
+.header-pill {
+  display:flex; align-items:center; gap:6px;
+  background:rgba(255,255,255,0.07);
+  border:1px solid rgba(255,255,255,0.10);
+  border-radius:20px; padding:4px 12px 4px 6px;
+  font-size:12px; color:rgba(255,255,255,0.70); cursor:pointer;
+}
+.doc-av {
+  width:20px; height:20px; border-radius:50%;
+  background:linear-gradient(135deg,var(--blue),var(--blue2));
+  display:flex; align-items:center; justify-content:center;
+  font-size:9px; font-weight:700; color:white;
+}
+.pat-bar {
+  display:flex; align-items:center; gap:8px;
+}
+.pat-chip {
+  display:flex; align-items:center; gap:7px;
+  background:rgba(255,255,255,0.07);
+  border:1px solid rgba(255,255,255,0.12);
+  border-radius:9px; padding:6px 12px;
+  font-size:13px; color:rgba(255,255,255,0.55);
+  transition: border-color 0.15s;
+}
+.pat-chip:focus-within {
+  border-color: rgba(96,165,250,0.50);
+  background: rgba(255,255,255,0.10);
+}
+.pat-chip input {
+  background:transparent; border:none; outline:none;
+  font-family:'DM Sans',sans-serif;
+  font-size:13px; color:rgba(255,255,255,0.95);
+  width:120px; min-width:0;
+}
+.pat-chip input::placeholder { color:rgba(255,255,255,0.25); }
+select.tpl-sel {
+  background:rgba(37,99,168,0.15);
+  border:1.5px solid rgba(37,99,168,0.40);
+  border-radius:9px; padding:7px 12px;
+  font-family:'DM Sans',sans-serif;
+  font-size:13px; font-weight:600; color:var(--glow);
+  outline:none; cursor:pointer;
+  transition: border-color 0.15s, background 0.15s;
+  -webkit-appearance: none;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2360a5fa' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  padding-right: 30px;
+}
+select.tpl-sel:focus { border-color: var(--glow); background-color: rgba(37,99,168,0.22); }
+
+/* ── THREE COLUMN SHELL ── */
+.shell {
+  position:fixed; top:52px; bottom:0; left:0; right:0;
+  display:grid;
+  grid-template-columns: 240px minmax(220px, auto) 1fr;
+  transition: top 0.2s;
+}
+
+/* ── LEFT PANEL ── */
+.left {
+  background:var(--navy2);
+  border-right:1px solid rgba(255,255,255,0.07);
+  display:flex; flex-direction:column;
+  overflow:hidden;
+}
+.left-top {
+  flex-shrink:0;
+  padding:16px 14px 12px;
+  border-bottom:1px solid rgba(255,255,255,0.06);
+}
+
+/* Big dictate button */
+.dictate-btn {
+  width:100%; padding:0; height:52px;
+  background:linear-gradient(135deg,var(--blue),var(--blue2));
+  border:none; border-radius:11px;
+  display:flex; align-items:center; justify-content:center; gap:9px;
+  font-family:'DM Sans',sans-serif;
+  font-size:14.5px; font-weight:700; color:white;
+  cursor:pointer; transition:all 0.2s;
+  box-shadow:0 4px 16px rgba(37,99,168,0.35);
+  margin-bottom:10px;
+}
+.dictate-btn:hover { filter:brightness(1.08); transform:translateY(-1px); }
+.dictate-btn.recording {
+  background:linear-gradient(135deg,#991b1b,var(--red));
+  box-shadow:0 4px 16px rgba(220,38,38,0.40);
+  animation:pulse-rec 1.4s ease-in-out infinite;
+}
+.dictate-btn.paused {
+  background:linear-gradient(135deg,#78530e,var(--gold));
+  box-shadow:0 4px 16px rgba(212,168,71,0.35);
+}
+@keyframes pulse-rec { 0%,100%{box-shadow:0 4px 14px rgba(220,38,38,0.35);} 50%{box-shadow:0 4px 28px rgba(220,38,38,0.65);} }
+
+.sub-btns { display:flex; gap:6px; margin-bottom:10px; }
+.sub-btn {
+  flex:1; height:34px; border-radius:8px;
+  border:1px solid rgba(255,255,255,0.10);
+  background:rgba(255,255,255,0.05);
+  color:rgba(255,255,255,0.65);
+  font-family:'DM Sans',sans-serif; font-size:12px; font-weight:500;
+  cursor:pointer; display:flex; align-items:center; justify-content:center; gap:5px;
+  transition:all 0.15s;
+}
+.sub-btn:hover { background:rgba(255,255,255,0.10); color:white; }
+.sub-btn.hidden { display:none; }
+
+.prog-row {
+  display:flex; align-items:center; gap:8px;
+  margin-bottom:10px;
+}
+.prog-track {
+  flex:1; height:3px; background:rgba(255,255,255,0.08);
+  border-radius:2px; overflow:hidden;
+}
+.prog-fill {
+  height:100%;
+  background:linear-gradient(to right,var(--blue),var(--glow));
+  border-radius:2px; width:0%; transition:width 0.4s;
+}
+.prog-pct { font-size:11px; font-weight:600; color:var(--gold); min-width:26px; text-align:right; }
+
+.action-row { display:flex; gap:6px; }
+.act-btn {
+  flex:1; height:32px; border-radius:7px;
+  border:1px solid rgba(255,255,255,0.08);
+  background:rgba(255,255,255,0.04);
+  color:rgba(255,255,255,0.60);
+  font-family:'DM Sans',sans-serif; font-size:11.5px; font-weight:500;
+  cursor:pointer; display:flex; align-items:center; justify-content:center; gap:4px;
+  transition:all 0.15s;
+}
+.act-btn:hover { background:rgba(255,255,255,0.09); color:white; }
+.act-btn.wa { background:rgba(37,211,102,0.12); color:#4ade80; border-color:rgba(37,211,102,0.20); }
+
+/* Waveform */
+.waveform {
+  display:flex; align-items:center; gap:2px; height:20px;
+  opacity:0; transition:opacity 0.3s;
+}
+.waveform.on { opacity:1; }
+.wb { width:2px; background:var(--glow); border-radius:1px; animation:wv 0.8s ease-in-out infinite; }
+@keyframes wv { 0%,100%{height:3px;} 50%{height:16px;} }
+
+/* Left tabs */
+.left-tabs {
+  display:flex; border-bottom:1px solid rgba(255,255,255,0.06);
+  flex-shrink:0;
+}
+.ltab {
+  flex:1; padding:9px 0; text-align:center;
+  font-size:10px; font-weight:700;
+  letter-spacing:0.08em; text-transform:uppercase;
+  color:rgba(255,255,255,0.30); cursor:pointer;
+  border-bottom:2px solid transparent;
+  transition:all 0.15s;
+}
+.ltab.active { color:var(--gold); border-bottom-color:var(--gold); }
+
+.left-scroll {
+  flex:1; overflow-y:auto; padding:10px 12px;
+}
+.left-scroll::-webkit-scrollbar { width:3px; }
+.left-scroll::-webkit-scrollbar-thumb { background:rgba(255,255,255,0.10); border-radius:2px; }
+
+/* History items */
+.hist-search {
+  display:flex; align-items:center; gap:6px;
+  background:rgba(255,255,255,0.06);
+  border:1px solid rgba(255,255,255,0.09);
+  border-radius:7px; padding:6px 9px; margin-bottom:8px;
+}
+.hist-search input {
+  background:transparent; border:none; outline:none;
+  font-family:'DM Sans',sans-serif; font-size:12px;
+  color:white; flex:1;
+}
+.hist-search input::placeholder { color:rgba(255,255,255,0.22); }
+.hist-item {
+  padding:8px 10px;
+  border-radius:7px;
+  border:1px solid rgba(255,255,255,0.06);
+  background:rgba(255,255,255,0.03);
+  margin-bottom:5px; cursor:pointer;
+  transition:all 0.15s;
+}
+.hist-item:hover { background:rgba(255,255,255,0.07); border-color:rgba(255,255,255,0.12); }
+.hist-name { font-size:12.5px; font-weight:500; color:rgba(255,255,255,0.88); margin-bottom:2px; }
+.hist-meta { font-size:10.5px; color:rgba(255,255,255,0.35); }
+
+/* ── MIDDLE PANEL ── */
+.middle {
+  background:var(--surface);
+  border-right:1px solid var(--border);
+  display:flex; flex-direction:column;
+  overflow:hidden;
+  min-width:200px;
+  max-width:300px;
+}
+.middle-head {
+  padding:16px 20px 12px;
+  border-bottom:1px solid var(--border);
+  flex-shrink:0;
+  background:var(--white);
+}
+.note-doc-title {
+  font-family:'Fraunces',serif;
+  font-size:17px; font-weight:400;
+  color:var(--ink); margin-bottom:3px;
+}
+.note-doc-meta {
+  font-size:11.5px; color:var(--ink3);
+}
+.middle-hint {
+  font-size:11.5px; color:var(--ink3);
+  padding:10px 20px 0;
+  display:flex; align-items:center; gap:6px;
+  flex-shrink:0;
+}
+.hint-dot { width:6px; height:6px; border-radius:50%; background:var(--green); animation:pulse-g 2s infinite; }
+@keyframes pulse-g { 0%,100%{box-shadow:0 0 0 0 rgba(22,163,74,0.4);} 50%{box-shadow:0 0 0 5px rgba(22,163,74,0);} }
+
+.sections-list {
+  flex:1; overflow-y:auto; padding:10px 14px 20px;
+}
+.sections-list::-webkit-scrollbar { width:4px; }
+.sections-list::-webkit-scrollbar-thumb { background:var(--border); border-radius:2px; }
+
+.sec-heading {
+  display:flex; align-items:center; gap:10px;
+  padding:12px 14px;
+  border-radius:10px;
+  border:1.5px solid transparent;
+  cursor:pointer;
+  transition:all 0.18s;
+  margin-bottom:4px;
+  user-select:none;
+}
+.sec-heading:hover {
+  background:rgba(37,99,168,0.06);
+  border-color:rgba(37,99,168,0.15);
+}
+.sec-heading.active {
+  background:var(--active);
+  border-color:var(--active-border);
+  box-shadow:0 2px 12px rgba(37,99,168,0.12);
+}
+.sec-heading.filled {
+  border-color:rgba(22,163,74,0.20);
+  background:rgba(22,163,74,0.04);
+}
+.sec-heading.filled:hover {
+  background:rgba(22,163,74,0.08);
+}
+.sec-heading.active.filled {
+  background:var(--active);
+  border-color:var(--active-border);
+}
+.sec-num-badge {
+  width:24px; height:24px; border-radius:50%;
+  background:var(--navy);
+  color:white;
+  font-size:10px; font-weight:700;
+  display:flex; align-items:center; justify-content:center;
+  flex-shrink:0; transition:background 0.2s;
+}
+.sec-heading.active .sec-num-badge {
+  background:var(--blue);
+  box-shadow:0 0 8px rgba(37,99,168,0.50);
+}
+.sec-heading.filled .sec-num-badge { background:var(--green); }
+.sec-heading.active.filled .sec-num-badge { background:var(--blue); box-shadow:0 0 8px rgba(37,99,168,0.50); }
+
+.sec-heading-right { flex:1; min-width:0; }
+.sec-heading-title {
+  font-size:13px; font-weight:600;
+  color:var(--ink); letter-spacing:0.02em;
+  text-transform:uppercase;
+}
+.sec-heading.active .sec-heading-title { color:var(--blue); }
+.sec-heading.filled .sec-heading-title { color:var(--green); }
+.sec-heading.active.filled .sec-heading-title { color:var(--blue); }
+.sec-heading-hint {
+  font-size:11.5px; color:var(--ink3);
+  margin-top:2px; white-space:nowrap;
+  overflow:hidden; text-overflow:ellipsis;
+}
+
+.sec-status {
+  flex-shrink:0;
+  font-size:11px; font-weight:600;
+}
+.sec-heading.active .sec-status { color:var(--blue); }
+.sec-heading.filled .sec-status { color:var(--green); }
+
+/* Recording pulse on active section */
+.sec-rec-badge {
+  display:none; align-items:center; gap:4px;
+  font-size:9.5px; font-weight:700; color:var(--red);
+  background:rgba(220,38,38,0.08);
+  border-radius:20px; padding:2px 7px;
+  flex-shrink:0;
+}
+.sec-rec-badge.show { display:flex; }
+.rec-dot { width:5px; height:5px; border-radius:50%; background:var(--red); animation:blink 1s ease-in-out infinite; }
+@keyframes blink { 0%,100%{opacity:1;} 50%{opacity:0.2;} }
+
+/* ── RIGHT PANEL ── */
+.right {
+  background:var(--white);
+  display:flex; flex-direction:column;
+  overflow:hidden;
+}
+.right-head {
+  padding:14px 24px 10px;
+  border-bottom:1px solid var(--border);
+  display:flex; align-items:center; justify-content:space-between;
+  flex-shrink:0;
+}
+.right-head-label {
+  font-size:10px; font-weight:700; letter-spacing:0.10em;
+  text-transform:uppercase; color:var(--ink3);
+  display:flex; align-items:center; gap:7px;
+}
+.live-dot {
+  width:6px; height:6px; border-radius:50%;
+  background:var(--ink3);
+  transition:background 0.3s;
+}
+.live-dot.on { background:var(--green); animation:pulse-g 2s infinite; }
+.right-head-actions { display:flex; gap:7px; }
+.r-btn {
+  padding:5px 12px; border-radius:6px;
+  border:1px solid var(--border); background:var(--cream);
+  font-family:'DM Sans',sans-serif; font-size:12px; font-weight:500;
+  color:var(--ink2); cursor:pointer; transition:all 0.15s;
+}
+.r-btn:hover { border-color:var(--blue); color:var(--blue); }
+.r-btn.wa { background:#25d366; color:white; border-color:#22c45e; }
+
+.note-scroll {
+  flex:1; overflow-y:auto; padding:28px 32px 40px;
+}
+.note-scroll::-webkit-scrollbar { width:4px; }
+.note-scroll::-webkit-scrollbar-thumb { background:var(--border); border-radius:2px; }
+
+/* Live note content */
+.note-patient-line {
+  font-family:'Fraunces',serif;
+  font-size:22px; font-weight:300;
+  color:var(--ink); margin-bottom:4px;
+  letter-spacing:-0.02em;
+}
+.note-patient-meta {
+  font-size:12px; color:var(--ink3);
+  margin-bottom:28px;
+  padding-bottom:20px;
+  border-bottom:1px solid var(--border);
+}
+.note-section-block { margin-bottom:22px; }
+.note-section-title {
+  font-size:10px; font-weight:700;
+  letter-spacing:0.12em; text-transform:uppercase;
+  color:var(--blue); margin-bottom:7px;
+  display:flex; align-items:center; gap:8px;
+}
+.note-section-title::after {
+  content:''; flex:1; height:1px; background:rgba(37,99,168,0.12);
+}
+.note-section-body {
+  font-size:14.5px; line-height:1.85;
+  color:var(--ink2);
+  outline:none;
+  min-height:24px;
+  border-radius:4px;
+  padding:2px 4px;
+  transition:background 0.15s;
+  cursor:text;
+}
+.note-section-body.just-filled {
+  animation: sectionPopIn 0.5s ease both;
+}
+@keyframes sectionPopIn {
+  from { opacity:0; transform:translateY(4px); background:rgba(37,99,168,0.08); }
+  to   { opacity:1; transform:translateY(0);   background:transparent; }
+}
+.note-section-body:focus {
+  background:rgba(37,99,168,0.04);
+  box-shadow:0 0 0 2px rgba(37,99,168,0.10);
+}
+.note-section-body:empty::before {
+  content: attr(data-placeholder);
+  color:rgba(0,0,0,0.18);
+  font-style:italic;
+  pointer-events:none;
+}
+/* Typing cursor animation when dictating into this section */
+.note-section-body.dictating::after {
+  content:'|';
+  color:var(--blue);
+  animation:cursor-blink 0.7s step-end infinite;
+  font-weight:300;
+  margin-left:1px;
+}
+@keyframes cursor-blink { 0%,100%{opacity:1;} 50%{opacity:0;} }
+
+.note-section-body.dictating {
+  background:rgba(37,99,168,0.03);
+}
+
+/* Empty state */
+.note-empty {
+  display:flex; flex-direction:column;
+  align-items:center; justify-content:center;
+  height:60%; text-align:center;
+  color:var(--ink3);
+  gap:10px;
+}
+.note-empty-icon { font-size:36px; opacity:0.20; }
+.note-empty-txt { font-size:13px; }
+
+/* Panel labels */
+.panel-label {
+  font-size:9px; font-weight:700; letter-spacing:0.14em;
+  text-transform:uppercase; color:rgba(255,255,255,0.28);
+  padding:10px 14px 4px;
+  flex-shrink:0;
+}
+
+/* Training panel */
+.train-area { padding:10px 12px; }
+.train-input-row { display:flex; gap:6px; margin-bottom:8px; }
+.train-input {
+  flex:1; background:rgba(255,255,255,0.07);
+  border:1px solid rgba(255,255,255,0.12);
+  border-radius:7px; padding:8px 10px;
+  font-family:'DM Sans',sans-serif; font-size:12px; color:white; outline:none;
+}
+.train-input::placeholder { color:rgba(255,255,255,0.22); }
+.train-add {
+  padding:0 12px; background:var(--blue); color:white;
+  border:none; border-radius:7px;
+  font-family:'DM Sans',sans-serif; font-size:12px; font-weight:600;
+  cursor:pointer;
+}
+.vocab-item {
+  display:flex; align-items:center; justify-content:space-between;
+  padding:6px 8px; background:rgba(255,255,255,0.04);
+  border-radius:6px; margin-bottom:4px;
+  font-size:12px; color:rgba(255,255,255,0.80);
+}
+.vocab-del { background:none; border:none; color:rgba(255,100,100,0.50); cursor:pointer; font-size:13px; }
+
+/* Left panel shown/hidden tabs */
+.left-panel-content { display:none; }
+.left-panel-content.show { display:block; }
+
+
+/* ── IPAD LANDSCAPE (>= 1024px) ── */
+@media(min-width:1024px){
+  header { height: 60px; }
+  .shell { top: 60px; grid-template-columns: 260px minmax(220px, auto) 1fr; }
+  .pat-chip input { font-size: 14px; }
+  .pat-chip { padding: 7px 12px; }
+  select.tpl-sel { font-size: 13.5px; padding: 7px 12px; }
+}
+
+/* ── IPAD PORTRAIT (768px – 1023px) ── */
+@media(min-width:768px) and (max-width:1023px){
+  header { height: 56px; flex-wrap: wrap; padding: 0; }
+  .logo { padding: 0 16px; height: 56px; }
+  .pat-bar {
+    order: 3; width: 100%; height: 52px;
+    background: var(--navy2);
+    border-top: 1px solid rgba(255,255,255,0.07);
+    padding: 0 16px; gap: 10px;
+    overflow-x: auto; scrollbar-width: none;
+  }
+  .pat-bar::-webkit-scrollbar { display: none; }
+  .header-right { padding-right: 16px; height: 56px; }
+  .shell {
+    top: 108px; /* header 56 + patient bar 52 */
+    grid-template-columns: 240px 1fr;
+  }
+  .right { display: none; }
+  /* Show export bar prominently on tablet since right panel hidden */
+  .export-bar { display: flex; }
+  .pat-chip { padding: 8px 12px; border-radius: 9px; }
+  .pat-chip input { font-size: 14px; width: 140px !important; }
+  #patMrd { width: 120px !important; }
+  #patAge { width: 70px !important; }
+  select.tpl-sel { font-size: 13px; padding: 7px 12px; }
+}
+
+/* ── IPAD MINI / SMALL TABLET (600px – 767px) ── */
+@media(min-width:600px) and (max-width:767px){
+  header { height: 56px; flex-wrap: wrap; padding: 0; }
+  .logo { padding: 0 14px; height: 56px; }
+  .pat-bar {
+    order: 3; width: 100%; height: 50px;
+    background: var(--navy2);
+    border-top: 1px solid rgba(255,255,255,0.07);
+    padding: 0 14px; gap: 8px;
+    overflow-x: auto; scrollbar-width: none;
+  }
+  .pat-bar::-webkit-scrollbar { display: none; }
+  .header-right { padding-right: 14px; height: 56px; }
+  .shell { top: 106px; grid-template-columns: 220px 1fr; }
+  .right { display: none; }
+  .pat-chip input { font-size: 13.5px; }
+}
+
+/* ── PHONE (< 600px) ── */
+@media(max-width:599px){
+  header { height: 52px; padding: 0 14px; }
+  .pat-bar { display: none; }
+  .shell { top: 52px; grid-template-columns: 1fr; }
+  .left { width: 100%; border-right: none; }
+  .middle { display: none; }
+  .right { display: flex; }
+  .export-bar { padding: 10px 14px; }
+}
+
+/* ── SINGLE DICTATE MODE ── */
+.single-dictate-area {
+  background: var(--navy2);
+  border-top: 1px solid rgba(255,255,255,0.07);
+  padding: 14px;
+  flex-shrink: 0;
+  display: none;
+}
+.single-dictate-area.show { display: block; }
+.single-dictate-label {
+  font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+  color: rgba(255,255,255,0.35); margin-bottom: 8px;
+}
+.single-dictate-btn {
+  width: 100%; height: 52px;
+  background: linear-gradient(135deg, var(--red), #991b1b);
+  border: none; border-radius: 10px;
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px; font-weight: 700; color: white;
+  cursor: pointer; transition: all 0.2s;
+  animation: pulse-rec 1.4s ease-in-out infinite;
+}
+.single-dictate-btn.idle {
+  background: linear-gradient(135deg, var(--blue), var(--blue2));
+  animation: none;
+}
+.single-dictate-timer {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px; color: rgba(255,255,255,0.50);
+  text-align: center; margin-top: 6px;
+  display: none;
+}
+.single-dictate-timer.show { display: block; }
+
+/* ── DICTATE MODE TOGGLE ── */
+.mode-toggle {
+  display: flex; background: rgba(255,255,255,0.05);
+  border-radius: 8px; padding: 3px; gap: 3px;
+  margin-bottom: 10px;
+}
+.mode-btn {
+  flex: 1; padding: 6px 0; border: none; border-radius: 6px;
+  font-family: 'DM Sans', sans-serif; font-size: 11px; font-weight: 600;
+  cursor: pointer; transition: all 0.15s;
+  color: rgba(255,255,255,0.40); background: transparent;
+}
+.mode-btn.active {
+  background: var(--blue); color: white;
+  box-shadow: 0 2px 8px rgba(37,99,168,0.30);
+}
+
+/* ── AI PROCESSING OVERLAY ── */
+.ai-overlay {
+  display: none; position: fixed; inset: 0;
+  background: rgba(20,30,45,0.85);
+  z-index: 500;
+  align-items: center; justify-content: center;
+  backdrop-filter: blur(4px);
+}
+.ai-overlay.show { display: flex; }
+.ai-card {
+  background: var(--navy2);
+  border: 1px solid rgba(255,255,255,0.10);
+  border-radius: 20px; padding: 36px 40px;
+  text-align: center; max-width: 360px; width: 100%;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.40);
+}
+.ai-spinner {
+  width: 48px; height: 48px; border-radius: 50%;
+  border: 3px solid rgba(37,99,168,0.20);
+  border-top-color: var(--blue);
+  animation: spin 0.8s linear infinite;
+  margin: 0 auto 18px;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+.ai-card-title {
+  font-family: 'Fraunces', serif; font-size: 20px;
+  color: white; margin-bottom: 8px;
+}
+.ai-card-sub {
+  font-size: 13px; color: rgba(255,255,255,0.45); line-height: 1.6;
+}
+.ai-step {
+  margin-top: 16px; font-size: 12px; font-weight: 600;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--glow);
+}
+
+/* ── SETTINGS PANEL ── */
+.settings-overlay {
+  display: none; position: fixed; inset: 0;
+  background: rgba(0,0,0,0.55); z-index: 600;
+  align-items: center; justify-content: center; padding: 24px;
+  backdrop-filter: blur(4px);
+}
+.settings-overlay.show { display: flex; }
+.settings-card {
+  background: var(--navy2);
+  border: 1px solid rgba(255,255,255,0.10);
+  border-radius: 18px; width: 100%; max-width: 420px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.40);
+  overflow: hidden;
+}
+.settings-head {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 18px 22px; border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.settings-title {
+  font-family: 'Fraunces', serif; font-size: 19px; color: white;
+  display: flex; align-items: center; gap: 9px;
+}
+.settings-close {
+  width: 28px; height: 28px; border-radius: 50%;
+  background: rgba(255,255,255,0.08); border: none;
+  color: rgba(255,255,255,0.55); font-size: 15px;
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+}
+.settings-body { padding: 20px 22px; display: flex; flex-direction: column; gap: 18px; }
+.settings-section-label {
+  font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+  color: rgba(255,255,255,0.32); margin-bottom: 8px;
+}
+.settings-desc { font-size: 12.5px; color: rgba(255,255,255,0.42); line-height: 1.6; margin-bottom: 10px; }
+.api-input-row { display: flex; gap: 7px; margin-bottom: 7px; }
+.api-input {
+  flex: 1; background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.13);
+  border-radius: 9px; padding: 10px 12px;
+  font-family: 'JetBrains Mono', monospace; font-size: 12.5px; color: white; outline: none;
+}
+.api-input::placeholder { color: rgba(255,255,255,0.20); }
+.api-eye {
+  width: 38px; background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 8px; cursor: pointer; color: rgba(255,255,255,0.50); font-size: 14px;
+  display: flex; align-items: center; justify-content: center;
+}
+.api-status {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 12px; color: rgba(255,255,255,0.35); margin-bottom: 10px;
+}
+.api-status-dot { width: 7px; height: 7px; border-radius: 50%; background: rgba(255,255,255,0.20); }
+.api-status-dot.active { background: var(--green); }
+.settings-save-btn {
+  flex: 1; padding: 10px; background: linear-gradient(135deg, var(--blue), var(--blue2));
+  color: white; border: none; border-radius: 8px;
+  font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 600; cursor: pointer;
+}
+.settings-clear-btn {
+  padding: 10px 14px; background: rgba(220,38,38,0.10);
+  color: #e57368; border: 1px solid rgba(220,38,38,0.22);
+  border-radius: 8px; font-family: 'DM Sans', sans-serif; font-size: 13px; cursor: pointer;
+}
+.mode-display {
+  display: flex; align-items: center; gap: 10px;
+  background: rgba(255,255,255,0.04); border-radius: 9px; padding: 12px 14px;
+}
+.settings-link { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--glow); }
+
+/* ── RIGHT PANEL EXPORT BUTTONS ── */
+.export-bar {
+  display: flex; gap: 8px; padding: 10px 20px;
+  border-top: 1px solid var(--border);
+  background: var(--white); flex-shrink: 0;
+}
+.exp-btn {
+  flex: 1; padding: 10px 0; border-radius: 8px;
+  border: 1.5px solid var(--border); background: var(--cream);
+  font-family: 'DM Sans', sans-serif; font-size: 12.5px; font-weight: 600;
+  color: var(--ink2); cursor: pointer; transition: all 0.15s;
+  display: flex; align-items: center; justify-content: center; gap: 6px;
+}
+.exp-btn:hover { border-color: var(--blue); color: var(--blue); background: rgba(37,99,168,0.05); }
+.exp-btn.wa { background: #25d366; color: white; border-color: #22c45e; }
+.exp-btn.wa:hover { background: #1db954; }
+.exp-btn.print { }
+
+/* Settings gear button */
+.gear-btn {
+  width: 32px; height: 32px; border-radius: 8px;
+  background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12);
+  color: rgba(255,255,255,0.65); font-size: 15px; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.15s;
+}
+.gear-btn:hover { background: rgba(255,255,255,0.14); color: white; }
+
+/* Transcript preview box */
+.transcript-preview {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 8px; padding: 10px 12px;
+  font-size: 12px; color: rgba(255,255,255,0.55);
+  margin-top: 8px; line-height: 1.6;
+  max-height: 80px; overflow: hidden;
+  font-style: italic;
+  display: none;
+}
+.transcript-preview.show { display: block; }
+
+
+/* De-identify token */
+.pseudo-on { background: var(--blue) !important; }
+</style>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+</head>
+<body>
+
+<!-- HEADER -->
+<header id="appHeader">
+  <div class="logo">
+    <div class="logo-mark">🎙</div>
+    <div class="logo-text">WO<em>YZ</em></div>
+  </div>
+
+  <div class="pat-bar">
+    <select class="tpl-sel" id="tplSel" onchange="loadTemplate(this.value)">
+      <option value="stroke">🧠 Stroke / Neurology</option>
+      <option value="discharge">📋 Discharge Summary</option>
+      <option value="procedure">🩺 Procedure Note</option>
+      <option value="followup">🔄 Follow-up Visit</option>
+      <option value="emergency">⚡ Emergency Consult</option>
+    </select>
+    <div class="pat-chip"><span style="opacity:.45;font-size:12px;">👤</span><input id="patName" placeholder="Patient name" autocomplete="off" autocorrect="off" spellcheck="false"></div>
+    <div class="pat-chip"><span style="opacity:.45;font-size:12px;">🔢</span><input id="patMrd" placeholder="UHID" autocomplete="off" style="width:90px;"></div>
+    <div class="pat-chip"><span style="opacity:.45;font-size:12px;">🎂</span><input id="patAge" placeholder="Age/Sex" autocomplete="off" style="width:55px;"></div>
+  </div>
+
+  <div class="header-right">
+    <div class="waveform" id="waveform">
+      <div class="wb" style="animation-delay:.00s"></div>
+      <div class="wb" style="animation-delay:.12s"></div>
+      <div class="wb" style="animation-delay:.24s"></div>
+      <div class="wb" style="animation-delay:.08s"></div>
+      <div class="wb" style="animation-delay:.20s"></div>
+    </div>
+    <!-- Mic status indicator -->
+    <div style="display:flex;align-items:center;gap:5px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.10);border-radius:20px;padding:4px 10px;">
+      <div id="micStatusDot" style="width: 7px; height: 7px; border-radius: 50%; background: rgb(74, 222, 128); transition: background 0.3s;"></div>
+      <span id="micStatusTxt" style="font-size:11.5px;color:rgba(255,255,255,0.50);white-space:nowrap;">Mic ready</span>
+    </div>
+    <button class="gear-btn" onclick="openSettings()" title="Settings">⚙️</button>
+    <div class="header-pill">
+      <div class="doc-av" id="docAvatar">GK</div>
+      <span id="docChipName">Dr. Gigy</span>
+    </div>
+  </div>
+</header>
+
+<!-- THREE COLUMN SHELL -->
+<div class="shell" id="appShell">
+
+  <!-- ── LEFT ── -->
+  <div class="left">
+    <div class="left-top">
+
+      <!-- New Patient — top, most prominent -->
+      <button onclick="newPatient()" style="width: 100%; height: 44px; margin-bottom: 10px; background: rgba(212, 168, 71, 0.12); border: 1.5px solid rgba(212, 168, 71, 0.3); border-radius: 10px; display: flex; align-items: center; justify-content: center; gap: 8px; font-family: &quot;DM Sans&quot;, sans-serif; font-size: 13.5px; font-weight: 700; color: var(--gold); cursor: pointer; transition: 0.18s;" onmouseover="this.style.background=&#39;rgba(212,168,71,0.20)&#39;" onmouseout="this.style.background=&#39;rgba(212,168,71,0.12)&#39;">
+        + New Patient
+      </button>
+
+      <!-- Dictate button -->
+      <button class="dictate-btn" id="dictBtn" onclick="handleDictClick()">
+        <span id="dictIcon">🎙</span>
+        <span id="dictLabel">Start Dictating</span>
+      </button>
+
+      <!-- Pause only — Stop & Process button handles stopping -->
+      <div class="sub-btns" id="subBtns" style="display:none;">
+        <button class="sub-btn" id="pauseBtn" onclick="toggleRecordingPause()" style="width:100%;">
+          <span id="pauseIcon">⏸</span> <span id="pauseLabel">Pause</span>
+        </button>
+      </div>
+
+      <!-- Progress + saved badge -->
+      <div class="prog-row">
+        <div class="prog-track"><div class="prog-fill" id="progFill" style="width: 0%;"></div></div>
+        <span class="prog-pct" id="progPct">0%</span>
+        <div id="savedBadge" style="
+          display:none; align-items:center; gap:4px;
+          font-size:10px; font-weight:700; color:#4ade80;
+          background:rgba(22,163,74,0.12);
+          border-radius:20px; padding:2px 8px;
+          white-space:nowrap;
+        ">✓ Saved</div>
+      </div>
+
+      <!-- Save + Delete — bigger, clearer -->
+      <div style="display:flex;gap:8px;margin-bottom:8px;">
+        <button onclick="saveNote()" style="
+          flex:1; height:42px; border-radius:9px;
+          background:rgba(22,163,74,0.12);
+          border:1.5px solid rgba(22,163,74,0.25);
+          color:#4ade80; font-size:14px; font-weight:600;
+          cursor:pointer; display:flex; align-items:center; justify-content:center; gap:7px;
+          font-family:&#39;DM Sans&#39;,sans-serif; transition:all 0.15s;
+        " onmouseover="this.style.background=&#39;rgba(22,163,74,0.20)&#39;" onmouseout="this.style.background=&#39;rgba(22,163,74,0.12)&#39;">
+          💾 Save
+        </button>
+        <button onclick="clearAll()" style="
+          flex:1; height:42px; border-radius:9px;
+          background:rgba(220,38,38,0.08);
+          border:1.5px solid rgba(220,38,38,0.20);
+          color:#f87171; font-size:14px; font-weight:600;
+          cursor:pointer; display:flex; align-items:center; justify-content:center; gap:7px;
+          font-family:&#39;DM Sans&#39;,sans-serif; transition:all 0.15s;
+        " onmouseover="this.style.background=&#39;rgba(220,38,38,0.16)&#39;" onmouseout="this.style.background=&#39;rgba(220,38,38,0.08)&#39;">
+          🗑 Clear
+        </button>
+      </div>
+      <!-- De-identify toggle -->
+      <div style="display:flex;align-items:center;justify-content:space-between;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:8px 11px;margin-bottom:6px;">
+        <div>
+          <div style="font-size:12px;font-weight:600;color:rgba(255,255,255,0.75);">🔒 De-identify</div>
+          <div style="font-size:10.5px;color:rgba(255,255,255,0.32);margin-top:1px;">Token ID replaces name in export</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:7px;">
+          <div id="pseudoTrack" onclick="togglePseudo()" style="width:40px;height:22px;background:rgba(255,255,255,0.12);border-radius:11px;position:relative;cursor:pointer;transition:background 0.2s;">
+            <div id="pseudoThumb" style="width:16px;height:16px;background:white;border-radius:50%;position:absolute;top:3px;left:3px;transition:transform 0.2s;box-shadow:0 1px 4px rgba(0,0,0,0.25);"></div>
+          </div>
+          <span id="pseudoLabel" style="font-size:11px;font-weight:600;color:rgba(255,255,255,0.35);">Off</span>
+        </div>
+      </div>
+      <div id="tokenRow" style="display:none;background:rgba(37,99,168,0.10);border:1px solid rgba(37,99,168,0.20);border-radius:8px;padding:7px 11px;margin-bottom:6px;cursor:pointer;" onclick="copyToken()">
+        <div style="font-size:10px;color:rgba(255,255,255,0.35);margin-bottom:2px;">TOKEN ID — tap to copy</div>
+        <div id="tokenDisplay" style="font-family:&#39;JetBrains Mono&#39;,monospace;font-size:13px;color:var(--glow);font-weight:500;"></div>
+      </div>
+    </div>
+
+    <!-- Tabs -->
+    <div class="left-tabs">
+      <div class="ltab active" id="lt-history" onclick="switchLTab(&#39;history&#39;)">History</div>
+      <div class="ltab" id="lt-training" onclick="switchLTab(&#39;training&#39;)">Training</div>
+    </div>
+
+    <div class="left-scroll">
+
+      <!-- HISTORY -->
+      <div class="left-panel-content show" id="lp-history">
+        <div class="hist-search">
+          <span style="opacity:.35;font-size:13px;">🔍</span>
+          <input placeholder="Search patient...">
+        </div>
+        <div id="histList"><div style="font-size:11px;color:rgba(255,255,255,0.22);padding:10px 4px;">Loading...</div><div class="hist-item" style="position: relative;"><span style="font-family:JetBrains Mono,monospace;font-size:11px;color:var(--glow);">🔒 UWD-4663-7DW</span><div class="hist-meta">F · Neurology · 13 May 04:45 pm</div><div style="display:flex;gap:5px;margin-top:6px;"><button data-nid="note_1778715924342" class="note-load-btn" style="flex:1;padding:4px 0;background:rgba(37,99,168,0.12);border:1px solid rgba(37,99,168,0.22);border-radius:5px;color:var(--glow);font-size:11px;cursor:pointer;font-family:DM Sans,sans-serif;">Load</button><button data-nid="note_1778715924342" class="note-del-btn" style="padding:4px 8px;background:rgba(220,38,38,0.08);border:1px solid rgba(220,38,38,0.18);border-radius:5px;color:#f87171;font-size:11px;cursor:pointer;">Del</button></div></div><div class="hist-item" style="position: relative;"><span class="hist-name">Ashwin</span><div class="hist-meta">34 · Neurology · 13 May 03:38 pm</div><div style="display:flex;gap:5px;margin-top:6px;"><button data-nid="note_1778711902272" class="note-load-btn" style="flex:1;padding:4px 0;background:rgba(37,99,168,0.12);border:1px solid rgba(37,99,168,0.22);border-radius:5px;color:var(--glow);font-size:11px;cursor:pointer;font-family:DM Sans,sans-serif;">Load</button><button data-nid="note_1778711902272" class="note-del-btn" style="padding:4px 8px;background:rgba(220,38,38,0.08);border:1px solid rgba(220,38,38,0.18);border-radius:5px;color:#f87171;font-size:11px;cursor:pointer;">Del</button></div></div><div class="hist-item" style="position: relative;"><span class="hist-name">manisha</span><div class="hist-meta">34 · Neurology · 13 May 12:16 pm</div><div style="display:flex;gap:5px;margin-top:6px;"><button data-nid="note_1778699804745" class="note-load-btn" style="flex:1;padding:4px 0;background:rgba(37,99,168,0.12);border:1px solid rgba(37,99,168,0.22);border-radius:5px;color:var(--glow);font-size:11px;cursor:pointer;font-family:DM Sans,sans-serif;">Load</button><button data-nid="note_1778699804745" class="note-del-btn" style="padding:4px 8px;background:rgba(220,38,38,0.08);border:1px solid rgba(220,38,38,0.18);border-radius:5px;color:#f87171;font-size:11px;cursor:pointer;">Del</button></div></div><div class="hist-item" style="position: relative;"><span class="hist-name">manisha</span><div class="hist-meta">34 · Neurology · 12 May 03:43 pm</div><div style="display:flex;gap:5px;margin-top:6px;"><button data-nid="note_1778625813582" class="note-load-btn" style="flex:1;padding:4px 0;background:rgba(37,99,168,0.12);border:1px solid rgba(37,99,168,0.22);border-radius:5px;color:var(--glow);font-size:11px;cursor:pointer;font-family:DM Sans,sans-serif;">Load</button><button data-nid="note_1778625813582" class="note-del-btn" style="padding:4px 8px;background:rgba(220,38,38,0.08);border:1px solid rgba(220,38,38,0.18);border-radius:5px;color:#f87171;font-size:11px;cursor:pointer;">Del</button></div></div><div class="hist-item" style="position: relative;"><span class="hist-name">manesh</span><div class="hist-meta">32 · Neurology · 12 May 03:32 pm</div><div style="display:flex;gap:5px;margin-top:6px;"><button data-nid="note_1778625172369" class="note-load-btn" style="flex:1;padding:4px 0;background:rgba(37,99,168,0.12);border:1px solid rgba(37,99,168,0.22);border-radius:5px;color:var(--glow);font-size:11px;cursor:pointer;font-family:DM Sans,sans-serif;">Load</button><button data-nid="note_1778625172369" class="note-del-btn" style="padding:4px 8px;background:rgba(220,38,38,0.08);border:1px solid rgba(220,38,38,0.18);border-radius:5px;color:#f87171;font-size:11px;cursor:pointer;">Del</button></div></div><div class="hist-item" style="position: relative;"><span class="hist-name">Mathew</span><div class="hist-meta">Neurology · 11 May 01:25 pm</div><div style="display:flex;gap:5px;margin-top:6px;"><button data-nid="note_1778531144038" class="note-load-btn" style="flex:1;padding:4px 0;background:rgba(37,99,168,0.12);border:1px solid rgba(37,99,168,0.22);border-radius:5px;color:var(--glow);font-size:11px;cursor:pointer;font-family:DM Sans,sans-serif;">Load</button><button data-nid="note_1778531144038" class="note-del-btn" style="padding:4px 8px;background:rgba(220,38,38,0.08);border:1px solid rgba(220,38,38,0.18);border-radius:5px;color:#f87171;font-size:11px;cursor:pointer;">Del</button></div></div><div class="hist-item" style="position: relative;"><span style="font-family:JetBrains Mono,monospace;font-size:11px;color:var(--glow);">🔒 WW4-7158-PZA</span><div class="hist-meta">54 · Neurology · 11 May 01:21 pm</div><div style="display:flex;gap:5px;margin-top:6px;"><button data-nid="note_1778530864568" class="note-load-btn" style="flex:1;padding:4px 0;background:rgba(37,99,168,0.12);border:1px solid rgba(37,99,168,0.22);border-radius:5px;color:var(--glow);font-size:11px;cursor:pointer;font-family:DM Sans,sans-serif;">Load</button><button data-nid="note_1778530864568" class="note-del-btn" style="padding:4px 8px;background:rgba(220,38,38,0.08);border:1px solid rgba(220,38,38,0.18);border-radius:5px;color:#f87171;font-size:11px;cursor:pointer;">Del</button></div></div></div>
+      </div>
+
+      <!-- TRAINING -->
+      <div class="left-panel-content" id="lp-training">
+        <div class="panel-label" style="padding:6px 0 8px;">Medical Vocabulary</div>
+        <div style="font-size:11.5px;color:rgba(255,255,255,0.35);margin-bottom:10px;line-height:1.5;">Add medications you use frequently. WOYZ learns to spell them correctly.</div>
+        <div class="train-input-row">
+          <input class="train-input" id="trainTerm" placeholder="e.g. Clopidogrel 75 mg">
+          <button class="train-add" onclick="addVocab()">+ Add</button>
+        </div>
+        <div id="vocabList"><div class="vocab-item"><span>Aspirin 75 mg</span><button class="vocab-del" onclick="delVocab(&#39;aspirin 75 mg&#39;)">x</button></div><div class="vocab-item"><span>Clopidogrel 75 mg</span><button class="vocab-del" onclick="delVocab(&#39;clopidogrel 75 mg&#39;)">x</button></div><div class="vocab-item"><span>Atorvastatin 40 mg</span><button class="vocab-del" onclick="delVocab(&#39;atorvastatin 40 mg&#39;)">x</button></div><div class="vocab-item"><span>Apixaban 5 mg</span><button class="vocab-del" onclick="delVocab(&#39;apixaban 5 mg&#39;)">x</button></div><div class="vocab-item"><span>Warfarin</span><button class="vocab-del" onclick="delVocab(&#39;warfarin&#39;)">x</button></div><div class="vocab-item"><span>Amlodipine 5 mg</span><button class="vocab-del" onclick="delVocab(&#39;amlodipine 5 mg&#39;)">x</button></div><div class="vocab-item"><span>NIHSS</span><button class="vocab-del" onclick="delVocab(&#39;nihss&#39;)">x</button></div><div class="vocab-item"><span>mRS</span><button class="vocab-del" onclick="delVocab(&#39;mrs&#39;)">x</button></div><div class="vocab-item"><span>tPA</span><button class="vocab-del" onclick="delVocab(&#39;tpa&#39;)">x</button></div><div class="vocab-item"><span>HbA1c</span><button class="vocab-del" onclick="delVocab(&#39;hba1c&#39;)">x</button></div></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── MIDDLE ── -->
+  <div class="middle">
+    <div class="middle-head">
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:10px;">
+        <div>
+          <div class="note-doc-title" id="midTitle">Stroke / Neurology OPD Note</div>
+          <div class="note-doc-meta" id="midMeta">14 May 2026 · Dr Gigy Kuruttukulam MD,DM</div>
+        </div>
+        <!-- Show note button on tablet (right panel hidden) -->
+        <button id="viewNoteBtn" onclick="toggleMobileNote()" style="
+          display:flex;flex-shrink:0;
+          padding:6px 12px;border-radius:7px;
+          background:rgba(37,99,168,0.12);
+          border:1px solid rgba(37,99,168,0.25);
+          color:var(--glow);font-size:12px;font-weight:600;
+          cursor:pointer;font-family:&#39;DM Sans&#39;,sans-serif;
+          white-space:nowrap;
+        ">View Note</button>
+      </div>
+    </div>
+    <div class="middle-hint">
+      <div class="hint-dot" id="hintDot"></div>
+      <span id="hintText">Tap a section to start dictating it</span>
+    </div>
+    <div class="sections-list" id="sectionsList"><div class="sec-heading" id="sh-cc"><div class="sec-num-badge" id="sn-cc">1</div><div class="sec-heading-right"><div class="sec-heading-title">Chief Complaint</div><div class="sec-heading-hint" id="hint-cc">Presenting complaint and onset...</div></div><div class="sec-rec-badge" id="rec-cc"><div class="rec-dot"></div>REC</div><div class="sec-status" id="st-cc"></div></div><div class="sec-heading" id="sh-hpi"><div class="sec-num-badge" id="sn-hpi">2</div><div class="sec-heading-right"><div class="sec-heading-title">History of Present Illness</div><div class="sec-heading-hint" id="hint-hpi">Duration, progression, risk factors...</div></div><div class="sec-rec-badge" id="rec-hpi"><div class="rec-dot"></div>REC</div><div class="sec-status" id="st-hpi"></div></div><div class="sec-heading" id="sh-pmh"><div class="sec-num-badge" id="sn-pmh">3</div><div class="sec-heading-right"><div class="sec-heading-title">Past Medical / Surgical Hx</div><div class="sec-heading-hint" id="hint-pmh">Hypertension, DM, prior strokes...</div></div><div class="sec-rec-badge" id="rec-pmh"><div class="rec-dot"></div>REC</div><div class="sec-status" id="st-pmh"></div></div><div class="sec-heading" id="sh-allergy"><div class="sec-num-badge" id="sn-allergy">4</div><div class="sec-heading-right"><div class="sec-heading-title">Allergies</div><div class="sec-heading-hint" id="hint-allergy">Drug allergies, contrast, NKDA...</div></div><div class="sec-rec-badge" id="rec-allergy"><div class="rec-dot"></div>REC</div><div class="sec-status" id="st-allergy"></div></div><div class="sec-heading" id="sh-meds"><div class="sec-num-badge" id="sn-meds">5</div><div class="sec-heading-right"><div class="sec-heading-title">Current Medications</div><div class="sec-heading-hint" id="hint-meds">Name, dose, frequency...</div></div><div class="sec-rec-badge" id="rec-meds"><div class="rec-dot"></div>REC</div><div class="sec-status" id="st-meds"></div></div><div class="sec-heading" id="sh-exam"><div class="sec-num-badge" id="sn-exam">6</div><div class="sec-heading-right"><div class="sec-heading-title">Neurological Examination</div><div class="sec-heading-hint" id="hint-exam">GCS, cranial nerves, motor, NIHSS...</div></div><div class="sec-rec-badge" id="rec-exam"><div class="rec-dot"></div>REC</div><div class="sec-status" id="st-exam"></div></div><div class="sec-heading" id="sh-inv"><div class="sec-num-badge" id="sn-inv">7</div><div class="sec-heading-right"><div class="sec-heading-title">Investigations</div><div class="sec-heading-hint" id="hint-inv">MRI, CT angio, bloods, INR...</div></div><div class="sec-rec-badge" id="rec-inv"><div class="rec-dot"></div>REC</div><div class="sec-status" id="st-inv"></div></div><div class="sec-heading" id="sh-imp"><div class="sec-num-badge" id="sn-imp">8</div><div class="sec-heading-right"><div class="sec-heading-title">Impression / Diagnosis</div><div class="sec-heading-hint" id="hint-imp">Final diagnosis...</div></div><div class="sec-rec-badge" id="rec-imp"><div class="rec-dot"></div>REC</div><div class="sec-status" id="st-imp"></div></div><div class="sec-heading" id="sh-plan"><div class="sec-num-badge" id="sn-plan">9</div><div class="sec-heading-right"><div class="sec-heading-title">Management Plan</div><div class="sec-heading-hint" id="hint-plan">Treatment, procedures, follow-up...</div></div><div class="sec-rec-badge" id="rec-plan"><div class="rec-dot"></div>REC</div><div class="sec-status" id="st-plan"></div></div></div>
+  </div>
+
+  <!-- ── RIGHT ── -->
+  <div class="right" id="rightPanel">
+    <div class="right-head">
+      <div class="right-head-label">
+        <div class="live-dot" id="liveDot"></div>
+        Live Note
+      </div>
+
+    </div>
+    <div class="note-scroll" id="noteScroll">
+      <div id="noteEmpty" class="note-empty" style="display: flex;">
+        <div class="note-empty-icon">📄</div>
+        <div class="note-empty-txt">Your note will appear here as you dictate</div>
+      </div>
+      <div id="noteContent" style="display:none;">
+        <div class="note-patient-line" id="notePatientLine"></div>
+        <div class="note-patient-meta" id="notePatientMeta"></div>
+        <div id="noteSections"><div class="note-section-block"><div class="note-section-title">Chief Complaint</div><div class="note-section-body" id="nb-cc" contenteditable="true" data-placeholder="Presenting complaint and onset..." oninput="onNoteEdit(&#39;cc&#39;)"></div></div><div class="note-section-block"><div class="note-section-title">History of Present Illness</div><div class="note-section-body" id="nb-hpi" contenteditable="true" data-placeholder="Duration, progression, risk factors..." oninput="onNoteEdit(&#39;hpi&#39;)"></div></div><div class="note-section-block"><div class="note-section-title">Past Medical / Surgical Hx</div><div class="note-section-body" id="nb-pmh" contenteditable="true" data-placeholder="Hypertension, DM, prior strokes..." oninput="onNoteEdit(&#39;pmh&#39;)"></div></div><div class="note-section-block"><div class="note-section-title">Allergies</div><div class="note-section-body" id="nb-allergy" contenteditable="true" data-placeholder="Drug allergies, contrast, NKDA..." oninput="onNoteEdit(&#39;allergy&#39;)"></div></div><div class="note-section-block"><div class="note-section-title">Current Medications</div><div class="note-section-body" id="nb-meds" contenteditable="true" data-placeholder="Name, dose, frequency..." oninput="onNoteEdit(&#39;meds&#39;)"></div></div><div class="note-section-block"><div class="note-section-title">Neurological Examination</div><div class="note-section-body" id="nb-exam" contenteditable="true" data-placeholder="GCS, cranial nerves, motor, NIHSS..." oninput="onNoteEdit(&#39;exam&#39;)"></div></div><div class="note-section-block"><div class="note-section-title">Investigations</div><div class="note-section-body" id="nb-inv" contenteditable="true" data-placeholder="MRI, CT angio, bloods, INR..." oninput="onNoteEdit(&#39;inv&#39;)"></div></div><div class="note-section-block"><div class="note-section-title">Impression / Diagnosis</div><div class="note-section-body" id="nb-imp" contenteditable="true" data-placeholder="Final diagnosis..." oninput="onNoteEdit(&#39;imp&#39;)"></div></div><div class="note-section-block"><div class="note-section-title">Management Plan</div><div class="note-section-body" id="nb-plan" contenteditable="true" data-placeholder="Treatment, procedures, follow-up..." oninput="onNoteEdit(&#39;plan&#39;)"></div></div></div>
+      </div>
+    </div>
+    <!-- Export bar -->
+    <div class="export-bar">
+      <button class="exp-btn print" onclick="printNote()">🖶 Print</button>
+      <button class="exp-btn" onclick="saveToFiles()" title="Save as text file to iPad Files app">📄 Save to Files</button>
+      <button class="exp-btn" onclick="copyNote()">📋 Copy to EMR</button>
+      <button class="exp-btn wa" onclick="waNote()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"></path></svg>
+        WhatsApp
+      </button>
+    </div>
+  </div>
+
+</div><!-- /shell -->
+
+<!-- Tablet note slide-up panel -->
+<div id="tabletNotePanel" style="
+  display:none;
+  position:fixed;inset:0;z-index:450;
+  background:rgba(0,0,0,0.50);
+  backdrop-filter:blur(4px);
+">
+  <div style="
+    position:absolute;bottom:0;left:0;right:0;
+    background:var(--white);
+    border-radius:18px 18px 0 0;
+    max-height:80vh;
+    display:flex;flex-direction:column;
+  ">
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 20px;border-bottom:1px solid var(--border);">
+      <div style="font-size:11px;font-weight:700;letter-spacing:0.10em;text-transform:uppercase;color:var(--ink3);">Live Note</div>
+      <button onclick="toggleMobileNote()" style="background:rgba(0,0,0,0.06);border:none;border-radius:50%;width:28px;height:28px;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;">✕</button>
+    </div>
+    <div style="flex:1;overflow-y:auto;padding:20px 24px;" id="tabletNoteContent"></div>
+    <div class="export-bar" style="border-top:1px solid var(--border);">
+      <button class="exp-btn print" onclick="printNote()">🖶 Print</button>
+      <button class="exp-btn" onclick="saveToFiles()">📄 Files</button>
+      <button class="exp-btn" onclick="copyNote();toggleMobileNote();">📋 Copy to EMR</button>
+      <button class="exp-btn wa" onclick="waNote();toggleMobileNote();">WA</button>
+    </div>
+  </div>
+</div>
+
+<!-- Microphone Permission Overlay -->
+<div id="micPermOverlay" style="display:none;position:fixed;inset:0;z-index:800;background:rgba(20,30,45,0.88);backdrop-filter:blur(6px);align-items:center;justify-content:center;padding:24px;">
+  <div style="background:#1c2b3d;border:1px solid rgba(255,255,255,0.12);border-radius:20px;max-width:360px;width:100%;padding:32px 28px;text-align:center;box-shadow:0 24px 60px rgba(0,0,0,0.45);">
+    <div style="width:64px;height:64px;background:linear-gradient(135deg,#2563a8,#3b82c4);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:28px;margin:0 auto 18px;box-shadow:0 8px 24px rgba(37,99,168,0.40);">🎤</div>
+    <div style="font-family:&#39;Fraunces&#39;,serif;font-size:21px;color:white;margin-bottom:8px;">Microphone Access</div>
+    <div style="font-size:13.5px;color:rgba(255,255,255,0.52);line-height:1.65;margin-bottom:24px;">WOYZ needs microphone access to record your voice dictation.</div>
+    <div style="background:rgba(255,255,255,0.05);border-radius:10px;padding:12px 14px;margin-bottom:22px;text-align:left;">
+      <div style="font-size:10px;font-weight:700;letter-spacing:0.10em;text-transform:uppercase;color:rgba(255,255,255,0.28);margin-bottom:8px;">On iPad / Safari</div>
+      <div style="display:flex;flex-direction:column;gap:6px;">
+        <div style="display:flex;gap:8px;font-size:12.5px;color:rgba(255,255,255,0.60);align-items:flex-start;"><span style="color:var(--glow);font-weight:700;flex-shrink:0;">1.</span> Tap <strong style="color:rgba(255,255,255,0.85);">Allow</strong> when Safari asks</div>
+        <div style="display:flex;gap:8px;font-size:12.5px;color:rgba(255,255,255,0.60);align-items:flex-start;"><span style="color:var(--glow);font-weight:700;flex-shrink:0;">2.</span> If blocked: Settings → Safari → Microphone → Allow</div>
+      </div>
+    </div>
+    <button onclick="grantMicPermission()" style="width:100%;padding:14px;background:linear-gradient(135deg,#2563a8,#3b82c4);color:white;border:none;border-radius:11px;font-family:&#39;DM Sans&#39;,sans-serif;font-size:15px;font-weight:700;cursor:pointer;margin-bottom:10px;box-shadow:0 4px 16px rgba(37,99,168,0.40);">🎤 Allow Microphone</button>
+    <button onclick="skipMicPermission()" style="width:100%;padding:10px;background:none;border:none;color:rgba(255,255,255,0.30);font-family:&#39;DM Sans&#39;,sans-serif;font-size:13px;cursor:pointer;">Not now</button>
+  </div>
+</div>
+
+<!-- AI Processing overlay -->
+<div class="ai-overlay" id="aiOverlay">
+  <div class="ai-card">
+    <div class="ai-spinner"></div>
+    <div class="ai-card-title">Processing your dictation</div>
+    <div class="ai-card-sub">Your dictation is being transcribed and structured into the correct clinical sections.</div>
+    <div class="ai-step" id="aiStep">Transcribing audio...</div>
+  </div>
+</div>
+
+<!-- Settings panel -->
+<div class="settings-overlay" id="settingsOverlay" onclick="if(event.target===this)closeSettings();">
+  <div class="settings-card">
+    <div class="settings-head">
+      <div class="settings-title">⚙️ Settings</div>
+      <button class="settings-close" onclick="closeSettings()">✕</button>
+    </div>
+    <div class="settings-body">
+
+      <!-- Doctor Profile — shown first so new users set this up first -->
+      <div>
+        <div class="settings-section-label">Your Profile</div>
+        <div class="settings-desc">Your name and credentials appear on all notes and exports. Set this once.</div>
+        <input class="api-input" id="doctorNameInput" type="text" placeholder="e.g. Dr. Rajan Kumar MD, DM" style="width:100%;margin-bottom:8px;">
+        <input class="api-input" id="doctorDeptInput" type="text" placeholder="Specialty / Department" style="width:100%;margin-bottom:10px;">
+        <button onclick="saveDoctorProfile()" class="settings-save-btn" style="width:100%;">
+          Save Profile
+        </button>
+        <div id="profileStatus" style="font-size: 11.5px; color: rgb(74, 222, 128); margin-top: 7px;">✓ Profile saved</div>
+      </div>
+      <div style="height:1px;background:rgba(255,255,255,0.07);"></div>
+
+      <div>
+        <div class="settings-section-label">API Key</div>
+        <div class="settings-desc">Required for voice dictation and AI note structuring. Saved on this device only — never shared.</div>
+        <div class="api-input-row">
+          <input class="api-input" id="apiKeyInput" type="password" placeholder="sk-proj-em...FewA">
+          <button class="api-eye" onclick="toggleApiVis()">👁</button>
+        </div>
+        <div class="api-status">
+          <div class="api-status-dot active" id="apiDot"></div>
+          <span id="apiStatusTxt" style="color: rgb(74, 222, 128);">API key active — real voice enabled</span>
+        </div>
+        <div style="display:flex;gap:8px;">
+          <button class="settings-save-btn" onclick="saveApiKey()">Save Key</button>
+          <button class="settings-clear-btn" onclick="clearApiKey()">Clear</button>
+        </div>
+        <div style="margin-top:9px;font-size:11.5px;color:rgba(255,255,255,0.28);">
+        </div>
+      </div>
+      <div style="height:1px;background:rgba(255,255,255,0.07);"></div>
+      <div>
+        <div class="settings-section-label">Dictation Mode</div>
+        <div class="mode-display">
+          <span id="settingsModeIcon" style="font-size:20px;">🎙</span>
+          <div>
+            <div id="settingsModeName" style="font-size:13.5px;font-weight:500;color:white;">AI Dictation Mode</div>
+            <div id="settingsModeDesc" style="font-size:11.5px;color:rgba(255,255,255,0.38);margin-top:2px;">Dictate continuously — AI will sort into sections</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// == DATA ==
+const templates = {
+  stroke:{
+    label:'Neurology',title:'Stroke / Neurology OPD Note',
+    sections:[
+      {id:'cc',    title:'Chief Complaint',            hint:'Presenting complaint and onset...'},
+      {id:'hpi',   title:'History of Present Illness', hint:'Duration, progression, risk factors...'},
+      {id:'pmh',   title:'Past Medical / Surgical Hx', hint:'Hypertension, DM, prior strokes...'},
+      {id:'allergy',title:'Allergies',                 hint:'Drug allergies, contrast, NKDA...'},
+      {id:'meds',  title:'Current Medications',        hint:'Name, dose, frequency...'},
+      {id:'exam',  title:'Neurological Examination',   hint:'GCS, cranial nerves, motor, NIHSS...'},
+      {id:'inv',   title:'Investigations',             hint:'MRI, CT angio, bloods, INR...'},
+      {id:'imp',   title:'Impression / Diagnosis',     hint:'Final diagnosis...'},
+      {id:'rx',    title:'Prescription',                hint:'Medications — each on a numbered line...'},
+      {id:'plan',  title:'Management Plan',             hint:'Advice, procedures, follow-up, referral...'},
+    ]
+  },
+  discharge:{
+    label:'Discharge',title:'Discharge Summary',
+    sections:[
+      {id:'admit',  title:'Admission Details',     hint:'Date and presenting complaint...'},
+      {id:'allergy',title:'Allergies',             hint:'Drug allergies, NKDA...'},
+      {id:'course', title:'Hospital Course',       hint:'Treatment, procedures, response...'},
+      {id:'proc',   title:'Procedures Performed',  hint:'EVT, DSA, stenting...'},
+      {id:'dmeds',  title:'Discharge Medications', hint:'Full medication list at discharge...'},
+      {id:'advice', title:'Discharge Advice',      hint:'Diet, activity, warning signs...'},
+      {id:'fuplan', title:'Follow-up Plan',        hint:'Date, clinic, pending investigations...'},
+    ]
+  },
+  procedure:{
+    label:'Procedure',title:'Procedure Note',
+    sections:[
+      {id:'pind',  title:'Indication',           hint:'Why procedure was performed...'},
+      {id:'allergy',title:'Allergies',            hint:'Contrast allergy, NKDA...'},
+      {id:'cons',  title:'Consent',              hint:'Informed consent obtained...'},
+      {id:'tech',  title:'Technique & Findings', hint:'Steps, contrast, fluoroscopy time...'},
+      {id:'compl', title:'Complications',        hint:'None or describe...'},
+      {id:'post',  title:'Post-procedure Care',  hint:'Monitoring, medications...'},
+    ]
+  },
+  followup:{
+    label:'Follow-up',title:'Follow-up Visit Note',
+    sections:[
+      {id:'intvl', title:'Interval History',         hint:'Changes since last visit...'},
+      {id:'allergy',title:'Allergies',               hint:'Any new drug reactions...'},
+      {id:'fuex',  title:'Examination Findings',     hint:'Vitals, neurological exam, mRS...'},
+      {id:'fuinv', title:'Review of Investigations', hint:'Latest labs, imaging reports...'},
+      {id:'fupl',  title:'Updated Plan',             hint:'Medication changes, referrals...'},
+    ]
+  },
+  emergency:{
+    label:'Emergency',title:'Emergency Consult Note',
+    sections:[
+      {id:'emp',  title:'Presentation',         hint:'Time, complaint, onset...'},
+      {id:'allergy',title:'Allergies',          hint:'Known drug allergies, contrast...'},
+      {id:'emex', title:'Rapid Assessment',     hint:'ABC, GCS, BP, glucose, NIHSS...'},
+      {id:'emim', title:'Emergency Imaging',    hint:'CT plain, CT angio, MRI findings...'},
+      {id:'emtx', title:'Decision & Treatment', hint:'tPA, EVT, timeline...'},
+      {id:'emds', title:'Disposition',          hint:'Stroke unit, ICU, ward...'},
+    ]
+  },
+};
+
+let corrections = {
+  'aspirin 75 mg':'Aspirin 75 mg','clopidogrel 75 mg':'Clopidogrel 75 mg',
+  'atorvastatin 40 mg':'Atorvastatin 40 mg','apixaban 5 mg':'Apixaban 5 mg',
+  'warfarin':'Warfarin','amlodipine 5 mg':'Amlodipine 5 mg',
+  'nihss':'NIHSS','mrs':'mRS','tpa':'tPA','hba1c':'HbA1c',
+};
+
+// ================================================================
+// INDEXEDDB STORAGE - large capacity on-device note storage
+// Replaces localStorage (5MB) with IndexedDB (hundreds of MB)
+// ================================================================
+const DB_NAME = 'WOYZNotesDB';
+const DB_VERSION = 1;
+const STORE_NOTES = 'notes';
+const STORE_VOCAB = 'vocab';
+let db = null;
+
+function openDB(){
+  return new Promise((resolve, reject) => {
+    if(db){ resolve(db); return; }
+    const req = indexedDB.open(DB_NAME, DB_VERSION);
+    req.onupgradeneeded = e => {
+      const d = e.target.result;
+      if(!d.objectStoreNames.contains(STORE_NOTES)){
+        const store = d.createObjectStore(STORE_NOTES, {keyPath:'id'});
+        store.createIndex('ts','ts',{unique:false});
+      }
+      if(!d.objectStoreNames.contains(STORE_VOCAB)){
+        d.createObjectStore(STORE_VOCAB, {keyPath:'key'});
+      }
+    };
+    req.onsuccess = e => { db = e.target.result; resolve(db); };
+    req.onerror = () => reject(req.error);
+  });
+}
+
+async function loadNotes(){
+  try{ var cn=await cloudLoad(); if(cn&&cn.length>0) return cn; }catch(e){}
+  try {
+    const d = await openDB();
+    return new Promise((resolve) => {
+      const tx = d.transaction(STORE_NOTES,'readonly');
+      const req = tx.objectStore(STORE_NOTES).index('ts').getAll();
+      req.onsuccess = () => resolve((req.result||[]).reverse()); // newest first
+      req.onerror = () => resolve([]);
+    });
+  } catch(e){ return []; }
+}
+
+async function persistNote(note){
+  try {
+    const d = await openDB();
+    return new Promise((resolve, reject) => {
+      const tx = d.transaction(STORE_NOTES,'readwrite');
+      tx.objectStore(STORE_NOTES).put(note);
+      tx.oncomplete = resolve;
+      tx.onerror = reject;
+    });
+  } catch(e){ showToast('Could not save note'); }
+}
+
+async function removeNote(id){
+  try {
+    const d = await openDB();
+    return new Promise((resolve) => {
+      const tx = d.transaction(STORE_NOTES,'readwrite');
+      tx.objectStore(STORE_NOTES).delete(id);
+      tx.oncomplete = resolve;
+    });
+  } catch(e){}
+}
+
+// Vocab stored in IndexedDB too
+async function saveVocabToDB(){
+  try {
+    const d = await openDB();
+    const tx = d.transaction(STORE_VOCAB,'readwrite');
+    const store = tx.objectStore(STORE_VOCAB);
+    store.clear();
+    Object.entries(corrections).forEach(([k,v]) => store.put({key:k,value:v}));
+  } catch(e){}
+}
+
+async function loadVocabFromDB(){
+  try {
+    const d = await openDB();
+    return new Promise((resolve) => {
+      const req = d.transaction(STORE_VOCAB,'readonly').objectStore(STORE_VOCAB).getAll();
+      req.onsuccess = () => {
+        (req.result||[]).forEach(r => corrections[r.key] = r.value);
+        resolve();
+      };
+      req.onerror = () => resolve();
+    });
+  } catch(e){}
+}
+
+// == STATE ==
+let currentTemplate = 'stroke';
+let noteData = {};
+let currentNoteId = null;
+let activeSectionId = null;
+let mainDictating = false;
+let mainPaused = false;
+let mainSectionIndex = 0;
+let demoInterval = null;
+
+const demoTexts = {
+  cc:'Patient presents with sudden onset right hemiparesis and dysarthria since 6 AM.',
+  hpi:'Sixty-two year old male, hypertensive and diabetic. Acute onset right hemiparesis at 0600 hours. NIHSS 14 on arrival. No headache, vomiting, or seizures.',
+  pmh:'Hypertension for ten years. Type 2 Diabetes Mellitus for eight years. No prior stroke or TIA. Ex-smoker.',
+  allergy:'No known drug allergies. No contrast allergy.',
+  meds:'Tablet Aspirin 75 mg once daily. Tablet Atorvastatin 40 mg at night. Tablet Amlodipine 5 mg once daily.',
+  exam:'GCS fifteen. Blood pressure 168 by 98 mm Hg. Heart rate 88 bpm regular. SpO2 97%. Right UMNF palsy. Right hemiplegia power 1 out of 5. NIHSS 14.',
+  inv:'CT Brain plain, no haemorrhage. CT Angiogram, left M1 MCA occlusion. Blood sugar 186 mg per dL. INR 1.1.',
+  imp:'Acute ischemic stroke left MCA territory NIHSS 14. Large vessel occlusion left M1.',
+  plan:'Patient eligible for mechanical thrombectomy. Consent obtained. Shifting to cath lab for emergent EVT. Hold antihypertensives. IV fluids 75 ml per hour.',
+  admit:'Admitted 8 May 2026 with acute ischemic stroke NIHSS 18.',
+  course:'IV tPA given at 45 minutes. Mechanical thrombectomy performed. NIHSS improved to 4 at discharge.',
+  proc:'Mechanical thrombectomy left M1 MCA. TICI 2b reperfusion achieved.',
+  dmeds:'Tablet Aspirin 75 mg once daily. Tablet Clopidogrel 75 mg once daily. Tablet Atorvastatin 40 mg at night.',
+  advice:'Low salt low fat diet. Avoid driving. Return if new weakness or speech difficulty.',
+  fuplan:'Review in 2 weeks. MRI brain at one month.',
+  pind:'Left M1 MCA occlusion on CT angiogram. Eligible for mechanical thrombectomy.',
+  cons:'Informed consent obtained from patient and family members.',
+  tech:'Right femoral access. Stent retriever at M1. TICI 2b reperfusion. Fluoroscopy 18 minutes.',
+  compl:'No intra-procedural complications.',
+  post:'Shifting to stroke unit. Vitals every 15 minutes. Blood sugar 6 hourly. CT at 24 hours.',
+  intvl:'Patient improving. Walking with support. No new deficits since last visit.',
+  fuex:'Blood pressure 130 by 80. Heart rate 72 regular. mRS score 2.',
+  fuinv:'MRI brain shows established left MCA infarct. Echocardiogram normal.',
+  fupl:'Continue dual antiplatelet for 3 months. Statin continued. Review in 4 weeks.',
+  emp:'Sudden onset speech arrest and right hemiplegia 30 minutes prior to arrival.',
+  emex:'GCS 13. Blood pressure 190 by 100. Blood sugar 140 mg per dL. NIHSS 16.',
+  emim:'CT Brain plain no haemorrhage. CT Angiogram right M2 MCA occlusion.',
+  emtx:'Within tPA window. tPA given at 40 minutes. Proceeding for mechanical thrombectomy.',
+  emds:'Admitted to stroke unit. Family counselled. CT at 24 hours planned.',
+};
+
+// == INIT ==
+function getDoctorName(){
+  return localStorage.getItem('woyz_doctor_name') || '';
+}
+
+function getDoctorInitials(){
+  const name = getDoctorName();
+  if(!name) return '?';
+  const parts = name.replace(/^Dr\.?\s*/i,'').trim().split(/\s+/);
+  const a = (parts[0]||'')[0] || '';
+  const b = (parts[1]||'')[0] || '';
+  return (a + b).toUpperCase() || '?';
+}
+
+// Single function to update ALL doctor name locations consistently
+function updateDoctorChip(){
+  const name = getDoctorName();
+  const initials = getDoctorInitials();
+  const avatar = document.getElementById('docAvatar');
+  const chip = document.getElementById('docChipName');
+  const midMeta = document.getElementById('midMeta');
+
+  // Header chip
+  if(avatar) avatar.textContent = initials;
+  if(chip){
+    if(!name){
+      chip.textContent = 'Set name';
+    } else {
+      // Show "Dr. Firstname" — short enough for header
+      const parts = name.replace(/^Dr\.?\s*/i,'').trim().split(/\s+/);
+      chip.textContent = 'Dr. ' + (parts[0] || '');
+    }
+  }
+
+  // Template meta (date · doctor name)
+  if(midMeta){
+    const dateStr = new Date().toLocaleDateString('en-IN',{day:'2-digit',month:'long',year:'numeric'});
+    midMeta.textContent = name ? dateStr + ' · ' + name : dateStr;
+  }
+}
+
+function init(){
+  const now = new Date();
+  // midMeta is set by updateDoctorChip() at end of init
+  loadTemplate('stroke');
+  renderHistory();
+  renderVocab();
+  ['patName','patMrd','patAge'].forEach(id=>{
+    document.getElementById(id).addEventListener('input', updatePatientHeader);
+  });
+  // Request mic permission on load
+  loadVocabFromStorage().then(()=>{ renderVocab(); });
+  setTimeout(requestMicPermission, 800);
+
+  // Restore doctor name everywhere on load
+  updateDoctorChip();
+}
+
+// == MICROPHONE PERMISSION ==
+let micPermission = 'unknown';
+
+let micRequested = false;
+let sharedMicStream = null;
+
+async function requestMicPermission(){
+  if(micRequested) return;
+  micRequested = true;
+  // Silent check via Permissions API first
+  if(navigator.permissions){
+    try {
+      const r = await navigator.permissions.query({name:'microphone'});
+      if(r.state === 'granted'){
+        micPermission='granted'; showMicStatus('granted');
+        localStorage.setItem('woyz_mic_granted','1'); return;
+      }
+      if(r.state === 'denied'){
+        micPermission='denied'; showMicStatus('denied'); return;
+      }
+    } catch(e){}
+  }
+  // Check localStorage
+  if(localStorage.getItem('woyz_mic_granted')==='1'){
+    micPermission='granted'; showMicStatus('granted'); return;
+  }
+  // Ask once — keep stream alive for reuse
+  try {
+    sharedMicStream = await navigator.mediaDevices.getUserMedia({
+      audio:{echoCancellation:true,noiseSuppression:true}
+    });
+    micPermission='granted'; showMicStatus('granted');
+    localStorage.setItem('woyz_mic_granted','1');
+  } catch(err){
+    micPermission='denied'; showMicStatus('denied');
+  }
+}
+
+async function getMicStream(){
+  if(sharedMicStream && sharedMicStream.active) return sharedMicStream;
+  sharedMicStream = await navigator.mediaDevices.getUserMedia({
+    audio:{echoCancellation:true,noiseSuppression:true}
+  });
+  return sharedMicStream;
+}
+
+function showMicStatus(state){
+  const dot = document.getElementById('micStatusDot');
+  const txt = document.getElementById('micStatusTxt');
+  if(!dot||!txt) return;
+  if(state==='granted'){
+    dot.style.background = '#4ade80';
+    txt.textContent = 'Mic ready';
+  } else {
+    dot.style.background = '#f87171';
+    txt.textContent = 'Mic blocked';
+  }
+}
+
+// These are kept as stubs in case called from overlay HTML
+function grantMicPermission(){ requestMicPermission(); }
+function skipMicPermission(){ document.getElementById('micPermOverlay').style.display='none'; }
+
+function updatePatientHeader(){
+  const n = document.getElementById('patName').value;
+  const m = document.getElementById('patMrd').value;
+  const a = document.getElementById('patAge').value;
+  document.getElementById('notePatientLine').textContent = n||'Patient';
+  document.getElementById('notePatientMeta').textContent =
+    [a, m, new Date().toLocaleDateString('en-IN',{day:'2-digit',month:'long',year:'numeric'}), getDoctorName()].filter(Boolean).join(' · ');
+}
+
+// == TEMPLATE ==
+function loadTemplate(key){
+  currentTemplate = key;
+  const t = templates[key];
+  if(!t){ console.error('Template not found:', key); return; }
+
+  const midTitle = document.getElementById('midTitle');
+  if(midTitle) midTitle.textContent = 'Visit Note';
+  
+  noteData = {};
+  t.sections.forEach(s => noteData[s.id] = '');
+
+  // Build middle section headings
+  const list = document.getElementById('sectionsList');
+  if(!list){
+    console.warn('sectionsList not ready, retrying...');
+    setTimeout(()=>loadTemplate(key), 150);
+    return;
+  }
+  console.log('loadTemplate: building', t.sections.length, 'sections into', list);
+  list.innerHTML = '';
+  t.sections.forEach((sec, i) => {
+    const div = document.createElement('div');
+    div.className = 'sec-heading';
+    div.id = 'sh-' + sec.id;
+    div.onclick = () => tapSection(sec.id);
+    div.innerHTML =
+      '<div class="sec-num-badge" id="sn-'+sec.id+'">'+(i+1)+'</div>'+
+      '<div class="sec-heading-right">'+
+        '<div class="sec-heading-title">'+sec.title+'</div>'+
+        '<div class="sec-heading-hint" id="hint-'+sec.id+'">'+sec.hint+'</div>'+
+      '</div>'+
+      '<div class="sec-rec-badge" id="rec-'+sec.id+'"><div class="rec-dot"></div>REC</div>'+
+      '<div class="sec-status" id="st-'+sec.id+'"></div>';
+    list.appendChild(div);
+  });
+
+  // Build right note sections (editable divs)
+  const noteSecs = document.getElementById('noteSections');
+  if(!noteSecs){ setTimeout(()=>loadTemplate(key), 100); return; }
+  noteSecs.innerHTML = '';
+  t.sections.forEach(sec => {
+    const block = document.createElement('div');
+    block.className = 'note-section-block';
+    block.innerHTML =
+      '<div class="note-section-title">'+sec.title+'</div>'+
+      '<div class="note-section-body" id="nb-'+sec.id+'" contenteditable="true" '+
+        'data-placeholder="'+sec.hint+'" '+
+        'oninput="onNoteEdit(\''+sec.id+'\')" '+
+      '></div>';
+    noteSecs.appendChild(block);
+  });
+
+  updateProgress();
+  checkNoteEmpty();
+}
+
+// == SECTION TAP ==
+function tapSection(id){
+  // Stop full dictation if running
+  if(singleRecording){ stopSingleDictate(); return; }
+
+  // If already recording this section — stop it
+  if(activeSectionId === id){
+    if(window._sectionRecorder && window._sectionRecorder.state !== 'inactive'){
+      window._sectionRecorder.stop(); // onstop handles transcription
+    } else if(demoInterval){
+      stopSectionDictation(id);
+    }
+    return;
+  }
+  // Stop any other active section first
+  if(activeSectionId){
+    if(window._sectionRecorder && window._sectionRecorder.state !== 'inactive'){
+      window._sectionRecorder.stop();
+    } else {
+      stopSectionDictation(activeSectionId);
+    }
+  }
+  startSectionDictation(id);
+}
+
+function startSectionDictation(id){
+  activeSectionId = id;
+  // Highlight the section heading
+  document.querySelectorAll('.sec-heading').forEach(h => h.classList.remove('active'));
+  const sh = document.getElementById('sh-' + id);
+  if(sh){
+    sh.classList.add('active');
+    sh.scrollIntoView({behavior:'smooth', block:'nearest'});
+  }
+  document.getElementById('rec-'+id)?.classList.add('show');
+  // Mark note body as dictating
+  document.querySelectorAll('.note-section-body').forEach(b => b.classList.remove('dictating'));
+  const nb = document.getElementById('nb-'+id);
+  if(nb){ nb.classList.add('dictating'); nb.scrollIntoView({behavior:'smooth', block:'nearest'}); }
+  // Waveform
+  document.getElementById('waveform').classList.add('on');
+  document.getElementById('liveDot').classList.add('on');
+  document.getElementById('hintDot').style.background = 'var(--red)';
+  const secTitle = templates[currentTemplate].sections.find(s=>s.id===id)?.title || id;
+  document.getElementById('hintText').textContent = 'Recording: ' + secTitle + ' — tap section again to stop';
+
+  if(getApiKey()){
+    startSectionRecording(id, secTitle);
+  } else {
+    // No API key — show reminder instead of running demo
+    showToast('Add API key in Settings ⚙️ to enable real dictation');
+    stopSectionDictation(id);
+  }
+}
+
+async function startSectionRecording(id, secTitle){
+  try {
+    const stream = await getMicStream();
+    let chunks = [];
+    const mt = getSupportedMimeType ? getSupportedMimeType() : '';
+    let mr;
+    try { mr = mt ? new MediaRecorder(stream,{mimeType:mt}) : new MediaRecorder(stream); }
+    catch(e){ mr = new MediaRecorder(stream); }
+    window._sectionRecorder = mr;
+    mr.ondataavailable = e => { if(e.data&&e.data.size>0) chunks.push(e.data); };
+    mr.onstop = async () => {
+      stream.getTracks().forEach(t=>t.stop());
+      window._sectionRecorder = null;
+      if(!chunks.length){ stopSectionDictation(id); return; }
+      document.getElementById('hintText').textContent = 'Transcribing ' + secTitle + '...';
+      try {
+        const mimeType = mr.mimeType || 'audio/mp4';
+        const ext = mimeType.includes('mp4')?'mp4':mimeType.includes('ogg')?'ogg':'webm';
+        const blob = new Blob(chunks,{type:mimeType});
+        const fd = new FormData();
+        fd.append('file', blob, 'recording.'+ext);
+        fd.append('model','whisper-1');
+        fd.append('language','en');
+        const vocab = Object.values(corrections).slice(0,60).join(', ');
+        if(vocab) fd.append('prompt', vocab);
+        const res = await fetch('https://api.openai.com/v1/audio/transcriptions',{
+          method:'POST', headers:{'Authorization':'Bearer '+getApiKey()}, body:fd
+        });
+        if(res.status===401){ showToast('Invalid API key — check Settings'); stopSectionDictation(id); return; }
+        if(!res.ok){ throw new Error('Error '+res.status); }
+        const data = await res.json();
+        const transcript = (data.text||'').trim();
+        if(!transcript){ showToast('No speech detected — try again'); stopSectionDictation(id); return; }
+        const nb = document.getElementById('nb-'+id);
+        if(nb){
+          const existing = nb.textContent.trim();
+          const merged = existing ? existing + ' ' + transcript : transcript;
+          nb.textContent = merged;
+          noteData[id] = merged;
+          nb.classList.add('just-filled');
+          setTimeout(()=>nb.classList.remove('just-filled'), 600);
+        }
+        applyCorrections(id);
+        updateProgress(); checkNoteEmpty(); updateSectionStatus(id);
+        showToast(secTitle + ' done');
+      } catch(err){ showToast('Error: '+err.message); }
+      stopSectionDictation(id);
+    };
+    mr.onerror = () => { showToast('Recording error'); stopSectionDictation(id); };
+    mr.start(500);
+  } catch(err){
+    if(err.name==='NotAllowedError') showToast('Microphone blocked — Settings → Privacy → Microphone');
+    else showToast('Cannot start mic: '+err.message);
+    stopSectionDictation(id);
+  }
+}
+
+function stopSectionDictation(id){
+  if(demoInterval){ clearInterval(demoInterval); demoInterval = null; }
+  const sh = document.getElementById('sh-'+id);
+  if(sh){ sh.classList.remove('active'); }
+  document.getElementById('rec-'+id)?.classList.remove('show');
+  document.getElementById('nb-'+id)?.classList.remove('dictating');
+  if(activeSectionId === id) activeSectionId = null;
+  document.getElementById('waveform').classList.remove('on');
+  document.getElementById('liveDot').classList.remove('on');
+  document.getElementById('hintDot').style.background = 'var(--green)';
+  document.getElementById('hintText').textContent = 'Tap a section to start dictating it';
+}
+
+function startDemo(id){
+  const nb = document.getElementById('nb-'+id);
+  if(!nb) return;
+  const text = demoTexts[id] || 'Dictated content for this section.';
+  // Append if already has content
+  const existing = nb.textContent.trim();
+  let current = existing ? existing + ' ' : '';
+  let idx = 0;
+  demoInterval = setInterval(()=>{
+    if(idx < text.length){
+      current += text[idx++];
+      nb.textContent = current;
+      noteData[id] = current;
+      // Scroll right panel to this section
+      nb.scrollIntoView({behavior:'smooth', block:'nearest'});
+      updateProgress();
+      checkNoteEmpty();
+      updateSectionStatus(id);
+    } else {
+      clearInterval(demoInterval); demoInterval = null;
+      applyCorrections(id);
+      stopSectionDictation(id);
+      // Auto-advance in Dictate All mode
+      if(mainDictating){
+        mainSectionIndex++;
+        setTimeout(dictateNext, 600);
+      }
+    }
+  }, 22);
+}
+
+function onNoteEdit(id){
+  const nb = document.getElementById('nb-'+id);
+  if(nb){ noteData[id] = nb.textContent.trim(); }
+  updateProgress();
+  updateSectionStatus(id);
+  checkNoteEmpty();
+}
+
+function applyCorrections(id){
+  const nb = document.getElementById('nb-'+id);
+  if(!nb) return;
+  let text = nb.textContent;
+  let changed = false;
+  Object.entries(corrections).forEach(([w,r])=>{
+    const rx = new RegExp(w,'gi');
+    if(rx.test(text)){ text = text.replace(rx,r); changed = true; }
+  });
+  if(changed){ nb.textContent = text; noteData[id] = text; }
+}
+
+function updateSectionStatus(id){
+  const filled = !!(noteData[id] && noteData[id].trim());
+  const sh = document.getElementById('sh-'+id);
+  const st = document.getElementById('st-'+id);
+  if(sh){ sh.classList.toggle('filled', filled && activeSectionId !== id); }
+  if(st){ st.textContent = filled ? 'v' : ''; }
+}
+
+function checkNoteEmpty(){
+  const t = templates[currentTemplate];
+  const hasAny = t.sections.some(s => noteData[s.id] && noteData[s.id].trim());
+  document.getElementById('noteEmpty').style.display = hasAny ? 'none' : 'flex';
+  document.getElementById('noteContent').style.display = hasAny ? 'block' : 'none';
+}
+
+function updateProgress(){
+  const t = templates[currentTemplate];
+  const filled = t.sections.filter(s => noteData[s.id] && noteData[s.id].trim()).length;
+  const pct = Math.round((filled / t.sections.length) * 100);
+  document.getElementById('progFill').style.width = pct + '%';
+  document.getElementById('progPct').textContent = pct + '%';
+}
+
+// == DICTATE ALL ==
+function handleDictClick(){
+  // With API key — use real single-flow dictation
+  if(getApiKey()){
+    toggleSingleDictate();
+    return;
+  }
+  // No API key — demo mode section by section
+  if(singleRecording){
+    stopSingleDictate();
+    return;
+  }
+  if(!mainDictating && !mainPaused){
+    mainDictating = true; mainPaused = false; mainSectionIndex = 0;
+    setSingleUI('recording');
+    dictateNext();
+  } else if(mainPaused){
+    mainPaused = false; mainDictating = true;
+    setSingleUI('recording');
+    dictateNext();
+  } else if(mainDictating){
+    stopAllDictation();
+  }
+}
+
+async function toggleRecordingPause(){
+  const pi = document.getElementById('pauseIcon');
+  const pl = document.getElementById('pauseLabel');
+
+  if(!singlePaused){
+    // ── PAUSE ──
+    // Safari does not support MediaRecorder.pause() — stop recorder, keep chunks
+    singlePaused = true;
+    clearInterval(timerInterval);
+    if(singleMediaRecorder && singleMediaRecorder.state === 'recording'){
+      // Temporarily stop to collect chunk — don't trigger onstop processing
+      // Just stop the recorder — keep stream alive for resume
+      singleMediaRecorder.requestData(); // flush last chunk
+      singleMediaRecorder.stop();
+    }
+    if(pi) pi.textContent = String.fromCodePoint(9654);
+    if(pl) pl.textContent = 'Resume';
+    showToast('Paused — tap Resume to continue');
+
+  } else {
+    // ── RESUME — reuse existing stream, no permission prompt ──
+    singlePaused = false;
+    try {
+      const stream = sharedMicStream && sharedMicStream.active
+        ? sharedMicStream
+        : await getMicStream();
+      const mimeType = getSupportedMimeType();
+      let newRecorder;
+      try {
+        newRecorder = mimeType ? new MediaRecorder(stream,{mimeType}) : new MediaRecorder(stream);
+      } catch(e){ newRecorder = new MediaRecorder(stream); }
+
+      newRecorder.ondataavailable = function(e){
+        if(e.data && e.data.size > 0) singleAudioChunks.push(e.data);
+      };
+      newRecorder.onstop = async function(){
+        if(!singlePaused){
+          // Stop & Process triggered — now safe to stop stream and process
+          if(sharedMicStream){ sharedMicStream.getTracks().forEach(function(t){ t.stop(); }); sharedMicStream = null; }
+          await processFullDictation();
+        }
+        // If paused — do nothing, stream stays alive
+      };
+      newRecorder.start(500);
+      singleMediaRecorder = newRecorder;
+      startTimer();
+      if(pi) pi.textContent = String.fromCodePoint(9208);
+      if(pl) pl.textContent = 'Pause';
+      showToast('Recording resumed');
+    } catch(err){
+      showToast('Could not resume mic: ' + err.message);
+    }
+  }
+}
+
+function togglePause(){
+  if(mainDictating && !mainPaused){
+    mainPaused = true; mainDictating = false;
+    if(demoInterval){ clearInterval(demoInterval); demoInterval = null; }
+    if(activeSectionId){ stopSectionDictation(activeSectionId); }
+    setSingleUI('paused');
+  } else if(mainPaused){
+    handleDictClick();
+  }
+}
+
+function stopAllDictation(){
+  if(demoInterval){ clearInterval(demoInterval); demoInterval = null; }
+  if(activeSectionId) stopSectionDictation(activeSectionId);
+  mainDictating = false; mainPaused = false; mainSectionIndex = 0;
+  setSingleUI('idle');
+}
+
+function dictateNext(){
+  if(!mainDictating) return;
+  const t = templates[currentTemplate];
+  if(mainSectionIndex >= t.sections.length){
+    stopAllDictation();
+    showToast('All sections dictated');
+    return;
+  }
+  const sec = t.sections[mainSectionIndex];
+  startSectionDictation(sec.id);
+}
+
+function setDictUI(state){ setSingleUI(state); }
+
+// == ACTIONS ==
+function copyNote(){
+  const t = templates[currentTemplate];
+  const n = document.getElementById('patName').value;
+  const m = document.getElementById('patMrd').value;
+  const a = document.getElementById('patAge').value;
+  let txt = 'VISIT NOTE\n';
+  if(pseudoMode && sessionToken){
+    txt += 'Token ID: '+sessionToken+' | Age/Sex: '+a+'\n';
+    txt += '[Patient identity held separately in EMR]\n';
+  } else {
+    txt += 'Patient: '+n+' | UHID: '+m+' | Age/Sex: '+a+'\n';
+  }
+  txt += 'Date: '+new Date().toLocaleDateString('en-IN')+'\n';
+  txt += 'Physician: '+getDoctorName()+'\n\n';
+  t.sections.forEach(s=>{
+    if(noteData[s.id]?.trim()) txt += s.title.toUpperCase()+'\n'+noteData[s.id].trim()+'\n\n';
+  });
+  if(pseudoMode) txt += '---\nDe-identified note. Link token '+sessionToken+' to patient record in EMR.\n';
+  navigator.clipboard.writeText(txt)
+    .then(()=>showToast(pseudoMode ? 'De-identified note copied' : 'Copied to clipboard'))
+    .catch(()=>showToast('Copy ready'));
+}
+
+function waNote(){
+  const t = templates[currentTemplate];
+  const n = document.getElementById('patName').value;
+  const a = document.getElementById('patAge').value;
+  let txt = '*Visit Note*\n'+getDoctorName()+'\n';
+  if(pseudoMode && sessionToken){
+    txt += '🔒 Token: '+sessionToken+' | Age: '+a+'\n_Patient identity held in EMR_\n\n';
+  } else {
+    txt += 'Patient: '+n+' | Age: '+a+'\n\n';
+  }
+  t.sections.forEach(s=>{
+    if(noteData[s.id]?.trim()) txt += '*'+s.title+'*\n'+noteData[s.id].trim()+'\n\n';
+  });
+  window.open('https://wa.me/?text='+encodeURIComponent(txt),'_blank');
+}
+
+// == NEW PATIENT ==
+function newPatient(){
+  currentNoteId = null;
+  if(!confirm('Start a new patient? Current note will be cleared.')) return;
+  // Clear patient fields
+  ['patName','patMrd','patAge'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el) el.value='';
+  });
+  // Clear all dictated content
+  clearAll(true); // silent clear
+  // Reset pseudo
+  if(pseudoMode) togglePseudo();
+  showToast('Ready for new patient');
+}
+
+// == PSEUDONYMISE ==
+let pseudoMode = false;
+let sessionToken = '';
+
+function generateToken(){
+  const c='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+  let t='';
+  for(let i=0;i<3;i++) t+=c[Math.floor(Math.random()*c.length)];
+  t+='-';for(let i=0;i<4;i++) t+=Math.floor(Math.random()*10);
+  t+='-';for(let i=0;i<3;i++) t+=c[Math.floor(Math.random()*c.length)];
+  return t;
+}
+
+function togglePseudo(){
+  pseudoMode = !pseudoMode;
+  const track = document.getElementById('pseudoTrack');
+  const thumb = document.getElementById('pseudoThumb');
+  const label = document.getElementById('pseudoLabel');
+  const tokenRow = document.getElementById('tokenRow');
+  const anonBadge = document.getElementById('anonBadge');
+  if(pseudoMode){
+    if(!sessionToken) sessionToken = generateToken();
+    track.style.background = 'var(--blue)';
+    thumb.style.transform = 'translateX(18px)';
+    label.textContent = 'On'; label.style.color = 'var(--glow)';
+    tokenRow.style.display = 'block';
+    document.getElementById('tokenDisplay').textContent = sessionToken;
+    if(anonBadge) anonBadge.style.display = 'inline-flex';
+    updatePatientHeader();
+    showToast('De-identified — code: '+sessionToken);
+  } else {
+    track.style.background = 'rgba(255,255,255,0.12)';
+    thumb.style.transform = 'translateX(0)';
+    label.textContent = 'Off'; label.style.color = 'rgba(255,255,255,0.35)';
+    tokenRow.style.display = 'none';
+    if(anonBadge) anonBadge.style.display = 'none';
+    updatePatientHeader();
+    showToast('De-identification off');
+  }
+}
+
+function copyToken(){
+  if(!sessionToken){ showToast('Enable de-identification first'); return; }
+  navigator.clipboard.writeText(sessionToken)
+    .then(()=>showToast('Token '+sessionToken+' copied'))
+    .catch(()=>showToast('Token: '+sessionToken));
+}
+
+async function saveNote(){
+  const t = templates[currentTemplate];
+  const hasContent = t.sections.some(s => noteData[s.id] && noteData[s.id].trim());
+  if(!hasContent){ showToast('Nothing to save yet — dictate first'); return; }
+
+  const n = document.getElementById('patName').value.trim();
+  const m = document.getElementById('patMrd').value.trim();
+  const a = document.getElementById('patAge').value.trim();
+
+  const note = {
+    id: currentNoteId || (currentNoteId = 'note_' + Date.now()),
+    ts: Date.now(),
+    template: currentTemplate,
+    label: t.label,
+    patient: pseudoMode ? null : n,
+    mrd: pseudoMode ? null : m,
+    age: a,
+    pseudo: pseudoMode,
+    token: pseudoMode ? sessionToken : null,
+    sections: { ...noteData },
+  };
+
+  await persistNote(note);
+  cloudSave(note);
+  renderHistory();
+
+  // Show saved badge
+  const badge = document.getElementById('savedBadge');
+  if(badge){
+    badge.style.display = 'flex';
+    clearTimeout(window._saveBadgeTimer);
+    window._saveBadgeTimer = setTimeout(()=>{ badge.style.display='none'; }, 4000);
+  }
+  showToast('Note saved on this iPad');
+}
+function finalise(){
+  showToast('Note finalised');
+}
+function clearAll(silent){
+  if(!silent && !confirm('Clear all dictated content?')) return;
+  stopAllDictation();
+  templates[currentTemplate].sections.forEach(s=>{
+    noteData[s.id]='';
+    const nb = document.getElementById('nb-'+s.id);
+    if(nb) nb.textContent='';
+    updateSectionStatus(s.id);
+  });
+  updateProgress();
+  checkNoteEmpty();
+  if(!silent) showToast('Cleared');
+}
+
+// == HISTORY (stored on device) ==
+async function renderHistory(){
+  const list = document.getElementById('histList');
+  list.innerHTML = '<div style="font-size:11px;color:rgba(255,255,255,0.22);padding:10px 4px;">Loading...</div>';
+  const notes = await loadNotes();
+  if(!notes.length){
+    list.innerHTML = '<div style="font-size:12px;color:rgba(255,255,255,0.25);padding:16px 4px;text-align:center;line-height:1.6;">No saved notes yet.<br>Dictate and tap Save.</div>';
+    return;
+  }
+  notes.forEach(note=>{
+    const ts = new Date(note.ts);
+    const dateStr = ts.toLocaleDateString('en-IN',{day:'2-digit',month:'short'}) +
+                    ' ' + ts.toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'});
+    const patLine = note.pseudo
+      ? '<span style="font-family:JetBrains Mono,monospace;font-size:11px;color:var(--glow);">🔒 '+note.token+'</span>'
+      : '<span class="hist-name">'+(note.patient||'Patient')+'</span>';
+    const div = document.createElement('div');
+    div.className = 'hist-item';
+    div.style.cssText = 'position:relative;';
+    div.innerHTML =
+      patLine +
+      '<div class="hist-meta">'+(note.age?note.age+' · ':'')+note.label+' · '+dateStr+'</div>'+
+      '<div style="display:flex;gap:5px;margin-top:6px;">'+
+        '<button data-nid="'+note.id+'" class="note-load-btn" style="flex:1;padding:4px 0;background:rgba(37,99,168,0.12);border:1px solid rgba(37,99,168,0.22);border-radius:5px;color:var(--glow);font-size:11px;cursor:pointer;font-family:DM Sans,sans-serif;">Load</button>'+
+        '<button data-nid="'+note.id+'" class="note-del-btn" style="padding:4px 8px;background:rgba(220,38,38,0.08);border:1px solid rgba(220,38,38,0.18);border-radius:5px;color:#f87171;font-size:11px;cursor:pointer;">Del</button>'+
+      '</div>';
+    list.appendChild(div);
+    div.querySelector('.note-load-btn').addEventListener('click', ()=> loadNote(note.id));
+    div.querySelector('.note-del-btn').addEventListener('click', ()=> deleteNote(note.id));
+    list.appendChild(div);
+  });
+}
+
+async function loadNote(id){
+  const notes = await loadNotes(); // must await — IndexedDB is async
+  const note = notes.find(n=>n.id===id);
+  if(!note){ showToast('Note not found'); return; }
+
+  // Load template first
+  if(note.template !== currentTemplate){
+    loadTemplate(note.template);
+    await new Promise(r => setTimeout(r, 100)); // wait for DOM
+  }
+
+  // Load patient fields
+  const setField = (fieldId, val) => {
+    const el = document.getElementById(fieldId);
+    if(el && val) el.value = val;
+  };
+  setField('patName', note.patient);
+  setField('patMrd', note.mrd);
+  setField('patAge', note.age);
+
+  // Load sections
+  if(note.sections){
+    Object.entries(note.sections).forEach(([sid, val])=>{
+      noteData[sid] = val || '';
+      const nb = document.getElementById('nb-'+sid);
+      if(nb){
+        nb.textContent = val || '';
+        if(val && val.trim()){
+          nb.classList.add('just-filled');
+          setTimeout(()=>nb.classList.remove('just-filled'), 600);
+        }
+      }
+      updateSectionStatus(sid);
+    });
+  }
+
+  // Restore de-identification state
+  if(note.pseudo && !pseudoMode && note.token){
+    sessionToken = note.token;
+    togglePseudo();
+  }
+
+  updateProgress();
+  checkNoteEmpty();
+  updatePatientHeader();
+  currentNoteId = id;
+  showToast('Note loaded');
+}
+
+async function deleteNote(id){
+  if(!confirm('Delete this note from the iPad?')) return;
+  await removeNote(id);
+  cloudDelete(id);
+  renderHistory();
+  showToast('Note deleted');
+}
+
+// == LEFT TABS ==
+function switchLTab(tab){
+  document.querySelectorAll('.ltab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('lt-'+tab).classList.add('active');
+  document.querySelectorAll('.left-panel-content').forEach(p=>p.classList.remove('show'));
+  document.getElementById('lp-'+tab).classList.add('show');
+}
+
+// == VOCABULARY ==
+// Vocab persistence now uses IndexedDB (saveVocabToDB / loadVocabFromDB defined above)
+function saveVocab(){ saveVocabToDB(); }
+function loadVocabFromStorage(){ return loadVocabFromDB(); }
+
+function addVocab(){
+  const term = document.getElementById('trainTerm').value.trim();
+  if(!term){ showToast('Enter a medication or clinical term'); return; }
+  corrections[term.toLowerCase()] = term;
+  document.getElementById('trainTerm').value = '';
+  saveVocab();
+  renderVocab();
+  showToast('"'+term+'" added to vocabulary');
+}
+
+function renderVocab(){
+  const list = document.getElementById('vocabList');
+  list.innerHTML = '';
+  Object.entries(corrections).forEach(([k,v])=>{
+    const div = document.createElement('div');
+    div.className = 'vocab-item';
+    div.innerHTML = '<span>'+v+'</span><button class="vocab-del" onclick="delVocab(\''+k+'\')">x</button>';
+    list.appendChild(div);
+  });
+}
+
+function delVocab(key){
+  delete corrections[key];
+  saveVocab();
+  renderVocab();
+}
+
+// == TOAST ==
+let toastT;
+function showToast(msg){
+  let t = document.getElementById('toast');
+  if(!t){
+    t = document.createElement('div');
+    t.id = 'toast';
+    t.style.cssText = 'position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(16px);background:var(--navy2);color:white;padding:10px 18px;border-radius:20px;font-size:13px;font-weight:500;box-shadow:0 4px 20px rgba(0,0,0,0.30);z-index:999;opacity:0;transition:all 0.22s;pointer-events:none;white-space:nowrap;border:1px solid rgba(255,255,255,0.10);';
+    document.body.appendChild(t);
+  }
+  t.textContent = msg;
+  t.style.opacity = '1';
+  t.style.transform = 'translateX(-50%) translateY(0)';
+  clearTimeout(toastT);
+  toastT = setTimeout(()=>{ t.style.opacity='0'; t.style.transform='translateX(-50%) translateY(12px)'; }, 2500);
+}
+
+document.getElementById('trainTerm').addEventListener('keydown', e=>{ if(e.key==='Enter') addVocab(); });
+document.getElementById('apiKeyInput')?.addEventListener('keydown', e=>{ if(e.key==='Enter') saveApiKey(); });
+
+// View Note button always visible
+function checkTabletMode(){ /* always shown */ }
+
+// Toggle note slide-up on tablet
+function toggleMobileNote(){
+  const panel = document.getElementById('tabletNotePanel');
+  const isOpen = panel.style.display === 'flex';
+  if(!isOpen){
+    // Sync content
+    const t = templates[currentTemplate];
+    const n = document.getElementById('patName').value;
+    const a = document.getElementById('patAge').value;
+    const m = document.getElementById('patMrd').value;
+    let html = '<div style="font-family:Fraunces,serif;font-size:20px;color:#0f1822;margin-bottom:4px;">'+(pseudoMode?'🔒 '+sessionToken:n||'Patient')+'</div>';
+    html += '<div style="font-size:12px;color:#6b7280;margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid #e2e8f0;">'+(pseudoMode?a:a+' · '+m)+' · '+getDoctorName()+'</div>';
+    t.sections.forEach(s=>{
+      if(noteData[s.id]&&noteData[s.id].trim()){
+        html += '<div style="font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#2563a8;margin-bottom:6px;margin-top:16px;">'+s.title+'</div>';
+        html += '<div style="font-size:14px;line-height:1.8;color:#374151;">'+noteData[s.id].trim()+'</div>';
+      }
+    });
+    document.getElementById('tabletNoteContent').innerHTML = html;
+    panel.style.display = 'flex';
+  } else {
+    panel.style.display = 'none';
+  }
+}
+
+// == API KEY ==
+function getApiKey(){ return localStorage.getItem('woyz_openai_key') || ''; }
+
+function openSettings(){
+  document.getElementById('settingsOverlay').classList.add('show');
+  refreshSettingsUI();
+}
+function closeSettings(){
+  document.getElementById('settingsOverlay').classList.remove('show');
+}
+function toggleApiVis(){
+  const inp = document.getElementById('apiKeyInput');
+  inp.type = inp.type === 'password' ? 'text' : 'password';
+}
+function saveApiKey(){
+  const val = document.getElementById('apiKeyInput').value.trim();
+  if(!val){ showToast('Paste your API key first'); return; }
+  if(!val.startsWith('sk-')){ showToast('Invalid key ? should start with sk-'); return; }
+  localStorage.setItem('woyz_openai_key', val);
+  document.getElementById('apiKeyInput').value = '';
+  refreshSettingsUI();
+  showToast('API key saved — tap Start Dictating');
+}
+function clearApiKey(){
+  localStorage.removeItem('woyz_openai_key');
+  document.getElementById('apiKeyInput').value = '';
+  refreshSettingsUI();
+  showToast('API key removed');
+}
+function saveDoctorProfile(){
+  const nameVal = (document.getElementById('doctorNameInput').value || '').trim();
+  const deptVal = (document.getElementById('doctorDeptInput').value || '').trim();
+  if(!nameVal){ showToast('Please enter your name'); return; }
+  localStorage.setItem('woyz_doctor_name', nameVal);
+  if(deptVal) localStorage.setItem('woyz_doctor_dept', deptVal);
+  updateDoctorChip();
+  updatePatientHeader();
+  const status = document.getElementById('profileStatus');
+  if(status){ status.textContent = '✓ Profile saved'; status.style.color = '#4ade80'; }
+  showToast('Profile saved — ' + nameVal);
+}
+
+function getDoctorDept(){
+  return localStorage.getItem('woyz_doctor_dept') || '';
+}
+
+function refreshSettingsUI(){
+  // Pre-fill doctor profile fields
+  const nameInp = document.getElementById('doctorNameInput');
+  const deptInp = document.getElementById('doctorDeptInput');
+  const profileStatus = document.getElementById('profileStatus');
+  if(nameInp) nameInp.value = getDoctorName();
+  if(deptInp) deptInp.value = getDoctorDept();
+  if(profileStatus && getDoctorName()){
+    profileStatus.textContent = '✓ Profile saved';
+    profileStatus.style.color = '#4ade80';
+  }
+  const key = getApiKey();
+  const dot = document.getElementById('apiDot');
+  const txt = document.getElementById('apiStatusTxt');
+  const modeIcon = document.getElementById('settingsModeIcon');
+  const modeName = document.getElementById('settingsModeName');
+  const modeDesc = document.getElementById('settingsModeDesc');
+  if(key){
+    const masked = key.substring(0,10) + '...' + key.slice(-4);
+    document.getElementById('apiKeyInput').placeholder = masked;
+    dot.classList.add('active');
+    txt.textContent = 'API key active — real voice enabled';
+    txt.style.color = '#4ade80';
+    modeIcon.textContent = '🎙';
+    modeName.textContent = 'AI Dictation Mode';
+    modeDesc.textContent = 'Dictate continuously — AI will sort into sections';
+  } else {
+    document.getElementById('apiKeyInput').placeholder = 'sk-proj-...';
+    dot.classList.remove('active');
+    txt.textContent = 'No API key ? demo mode active';
+    txt.style.color = 'rgba(255,255,255,0.35)';
+    modeIcon.textContent = '🎭';
+    modeName.textContent = 'Demo Mode';
+    modeDesc.textContent = 'Add API key to enable real voice dictation';
+  }
+}
+
+// == DICTATION MODE ==
+let dictMode = 'single'; // 'section' | 'single'
+
+function setMode(mode){
+  dictMode = mode;
+  document.getElementById('modeSection').classList.toggle('active', mode === 'section');
+  document.getElementById('modeSingle').classList.toggle('active', mode === 'single');
+  document.getElementById('dictBtn').style.display = mode === 'section' ? 'flex' : 'none';
+  document.getElementById('singleDictArea').style.display = mode === 'single' ? 'block' : 'none';
+  document.getElementById('subBtns').style.display = 'none';
+}
+
+// == SINGLE (FULL) DICTATION ==
+let singleRecording = false;
+let singleMediaRecorder = null;
+let singleAudioChunks = [];
+let singlePaused = false;
+let timerInterval = null;
+let timerSeconds = 0;
+
+function getSupportedMimeType(){
+  const types = ['audio/mp4','audio/webm;codecs=opus','audio/webm','audio/ogg',''];
+  for(const t of types){ if(t===''||MediaRecorder.isTypeSupported(t)) return t; }
+  return '';
+}
+
+async function toggleSingleDictate(){
+  if(!singleRecording){
+    await startSingleDictate();
+  } else {
+    stopSingleDictate();
+  }
+}
+
+async function startSingleDictate(){
+  singlePaused = false;
+  if(!getApiKey()){
+    // Demo mode = simulate full dictation then AI sort
+    singleRecording = true;
+    setSingleUI('recording');
+    startDemoFullDictation();
+    return;
+  }
+  try {
+    const stream = await getMicStream();
+    singleAudioChunks = [];
+    const mimeType = getSupportedMimeType();
+    try {
+      singleMediaRecorder = mimeType
+        ? new MediaRecorder(stream,{mimeType})
+        : new MediaRecorder(stream);
+    } catch(e){ singleMediaRecorder = new MediaRecorder(stream); }
+    singleMediaRecorder.ondataavailable = e => { if(e.data&&e.data.size>0) singleAudioChunks.push(e.data); };
+    singleMediaRecorder.onstop = async () => {
+      if(!singlePaused){
+        if(sharedMicStream){ sharedMicStream.getTracks().forEach(t=>t.stop()); sharedMicStream=null; }
+        await processFullDictation();
+      }
+    };
+    singleMediaRecorder.start(500);
+    singleRecording = true;
+    setSingleUI('recording');
+    startTimer();
+    showToast('Listening ? dictate your entire note, then tap Stop');
+  } catch(err){
+    if(err.name==='NotAllowedError') showToast('Microphone blocked ? allow in Safari Settings');
+    else showToast('Cannot start mic: '+err.message);
+  }
+}
+
+function stopSingleDictate(){
+  singlePaused = false; // mark as not paused so onstop fires processFullDictation
+  singleRecording = false;
+  stopTimer();
+  setSingleUI('idle');
+  if(singleMediaRecorder && singleMediaRecorder.state !== 'inactive'){
+    singleMediaRecorder.stop(); // triggers onstop -> processFullDictation
+  } else if(!getApiKey()){
+    // demo already running
+  }
+}
+
+function setSingleUI(state){
+  // All elements use dictBtn (main button) — singleBtn does not exist in this layout
+  const btn   = document.getElementById('dictBtn');
+  const icon  = document.getElementById('dictIcon');
+  const label = document.getElementById('dictLabel');
+  const timer = document.getElementById('dictTimer');
+  const sub   = document.getElementById('subBtns');
+  const wf    = document.getElementById('waveform');
+  const ld    = document.getElementById('liveDot');
+  const hDot  = document.getElementById('hintDot');
+  const hTxt  = document.getElementById('hintText');
+  const pIcon = document.getElementById('pauseIcon');
+  const pLbl  = document.getElementById('pauseLabel');
+
+  if(state === 'recording'){
+    if(btn)   btn.className = 'dictate-btn recording';
+    if(icon)  icon.textContent = String.fromCodePoint(9209); // stop symbol
+    if(label) label.textContent = 'Stop & Process';
+    if(sub)   sub.style.display = 'flex';
+    if(timer) timer.style.display = 'block';
+    if(wf)    wf.classList.add('on');
+    if(ld)    ld.classList.add('on');
+    if(hDot)  hDot.style.background = 'var(--red)';
+    if(hTxt)  hTxt.textContent = 'Recording — speak your full note, then tap Stop';
+    if(pIcon) pIcon.textContent = String.fromCodePoint(9208);
+    if(pLbl)  pLbl.textContent = 'Pause';
+  } else if(state === 'paused'){
+    if(btn)   btn.className = 'dictate-btn paused';
+    if(icon)  icon.textContent = String.fromCodePoint(9654); // play
+    if(label) label.textContent = 'Tap to Resume';
+    if(sub)   sub.style.display = 'flex';
+    if(timer) timer.style.display = 'block';
+    if(wf)    wf.classList.remove('on');
+    if(hDot)  hDot.style.background = 'var(--gold)';
+    if(hTxt)  hTxt.textContent = 'Paused — tap Resume to continue';
+    if(pIcon) pIcon.textContent = String.fromCodePoint(9654);
+    if(pLbl)  pLbl.textContent = 'Resume';
+  } else {
+    if(btn)   btn.className = 'dictate-btn';
+    if(icon)  icon.textContent = String.fromCodePoint(127908);
+    if(label) label.textContent = getApiKey() ? 'Start Dictating' : 'Demo Mode';
+    if(sub)   sub.style.display = 'none';
+    if(timer) timer.style.display = 'none';
+    if(wf)    wf.classList.remove('on');
+    if(ld)    ld.classList.remove('on');
+    if(hDot)  hDot.style.background = 'var(--green)';
+    if(hTxt)  hTxt.textContent = 'Tap a section to dictate it';
+  }
+}
+
+function startTimer(){
+  timerSeconds = 0;
+  timerInterval = setInterval(()=>{
+    timerSeconds++;
+    const m = Math.floor(timerSeconds/60);
+    const s = timerSeconds % 60;
+    const dt=document.getElementById('dictTimer'); if(dt) dt.textContent = m+':'+(s<10?'0':'')+s;
+  }, 1000);
+}
+function stopTimer(){
+  clearInterval(timerInterval); timerInterval = null;
+}
+
+// == FULL DICTATION PROCESSING ==
+const GPT_SYSTEM_PROMPT = `You are a clinical note assistant helping a doctor structure a dictated medical note.
+
+The doctor has dictated a continuous note. Your job is to:
+1. Correct spelling and grammar of the dictated text
+2. Place each piece of information into the correct section
+3. Do NOT add, infer, assume, or hallucinate any clinical information
+4. If information for a section was not dictated, write exactly: Not dictated
+5. Do not add clinical details that were not explicitly spoken
+6. Correct obvious medical spelling errors (e.g. asprin to Aspirin, nihss to NIHSS, mrs to mRS, mri to MRI, ct to CT, ecg to ECG)
+7. Maintain the original meaning exactly
+8. Do not add anything not dictated. Do not leave out anything that was dictated.
+
+INVESTIGATIONS SECTION - MANDATORY NUMBERED LIST:
+CRITICAL RULE: Every single investigation MUST be on its own separate numbered line. This is non-negotiable.
+- Start from 1 and number every item sequentially.
+- NEVER use bullet points, dashes, or commas to separate investigations.
+- NEVER write investigations as a paragraph or run-on sentence.
+- Blood/lab values format: "1. Test name: value unit"
+- Imaging format: "2. CT Brain plain: findings here."
+- Blood tests and imaging go in ONE combined numbered list together.
+- Standard units MUST always be included: Haemoglobin=g/dL, RBC=millions/cumm, WBC=cells/cumm, Platelets=lakhs/cumm, PCV=%, Blood Sugar=mg/dL, HbA1c=%, Creatinine=mg/dL, Urea=mg/dL, Sodium=mEq/L, Potassium=mEq/L, Chloride=mEq/L, Bilirubin=mg/dL, ALT=U/L, AST=U/L, ALP=U/L, Albumin=g/dL, Cholesterol=mg/dL, Triglycerides=mg/dL, HDL=mg/dL, LDL=mg/dL, TSH=mIU/L, INR=no unit, PT=seconds, APTT=seconds, ESR=mm/hr, CRP=mg/L, Troponin=ng/mL, Uric Acid=mg/dL, Calcium=mg/dL.
+
+CORRECT FORMAT for investigations:
+1. Haemoglobin: 12.8 g/dL
+2. Platelet count: 2.1 lakhs/cumm
+3. Random Blood Sugar: 186 mg/dL
+4. Serum Creatinine: 1.0 mg/dL
+5. CT Brain plain: No haemorrhage. Early ischaemic changes left MCA territory.
+6. CT Angiogram: Left M1 MCA occlusion.
+7. ECG: Normal sinus rhythm.
+8. Echocardiogram: Ejection fraction 55%. No regional wall motion abnormality.
+
+WRONG FORMAT - never do this:
+CT Brain plain normal, Haemoglobin 12.8, Blood Sugar 186. [WRONG - this is a paragraph]
+
+MEDICATIONS SECTION - MANDATORY NUMBERED LIST:
+CRITICAL RULE: Every medication MUST be on its own separate numbered line. This is non-negotiable.
+- Start from 1 and number every medication sequentially.
+- NEVER write medications as a paragraph or comma-separated list.
+- Format: "1. Tablet Drug name dose frequency"
+
+CORRECT FORMAT for medications:
+1. Tablet Aspirin 75 mg once daily
+2. Tablet Atorvastatin 40 mg at night
+3. Tablet Metformin 500 mg twice daily
+
+WRONG FORMAT - never do this:
+Aspirin 75 mg, Atorvastatin 40 mg, Metformin 500 mg once daily. [WRONG - comma separated]
+
+PRESCRIPTION SECTION - MANDATORY NUMBERED LIST:
+CRITICAL RULE: Same as medications — every prescribed drug MUST be on its own numbered line.
+- Format: "1. Tablet Drug name dose frequency duration"
+- Include dose, frequency, and duration if dictated.
+- NEVER write as a paragraph or comma-separated list.
+
+CORRECT FORMAT for prescription:
+1. Tablet Aspirin 75 mg once daily — continue
+2. Tablet Clopidogrel 75 mg once daily — 1 month
+3. Tablet Atorvastatin 40 mg at night — continue
+4. Tablet Metformin 500 mg twice daily — continue
+
+ALL OTHER SECTIONS: Normal paragraph format. Do not number items in other sections.
+
+Return a JSON object with section IDs as keys and the structured content as values.
+Return ONLY the JSON object, no other text, no markdown fences.`
+
+async function processFullDictation(transcript){
+  const overlay = document.getElementById('aiOverlay');
+  const step = document.getElementById('aiStep');
+  if(overlay) overlay.classList.add('show');
+  if(step) step.textContent = 'Transcribing your dictation...';
+
+  try {
+    let finalTranscript = transcript;
+
+    // Step 1: Transcribe audio
+    if(!finalTranscript && singleAudioChunks.length > 0){
+      const mimeType = (singleMediaRecorder && singleMediaRecorder.mimeType)
+        ? singleMediaRecorder.mimeType : 'audio/mp4';
+      const ext = mimeType.includes('mp4')?'mp4':mimeType.includes('ogg')?'ogg':'webm';
+      const blob = new Blob(singleAudioChunks, {type: mimeType});
+      const formData = new FormData();
+      formData.append('file', blob, 'recording.'+ext);
+      formData.append('model', 'whisper-1');
+      formData.append('language', 'en');
+      const vocab = Object.values(corrections).slice(0,60).join(', ');
+      if(vocab) formData.append('prompt', vocab);
+
+      const wRes = await fetch('https://api.openai.com/v1/audio/transcriptions', {
+        method: 'POST',
+        headers: {'Authorization': 'Bearer ' + getApiKey()},
+        body: formData,
+      });
+      if(wRes.status === 401){ throw new Error('Invalid API key — check Settings'); }
+      if(!wRes.ok){ throw new Error('Transcription failed: ' + wRes.status); }
+      const wData = await wRes.json();
+      finalTranscript = (wData.text || '').trim();
+    }
+
+    if(!finalTranscript){ throw new Error('No speech detected — speak closer to the mic'); }
+    showToast('Transcribed: ' + finalTranscript.substring(0, 60) + '...');
+
+    // Step 2: AI categorisation into sections
+    if(step) step.textContent = 'Structuring your note...';
+    const t = templates[currentTemplate];
+    const sectionList = t.sections.map(s => s.id + ': ' + s.title).join('\n');
+    const userPrompt = 'Available sections:\n' + sectionList + '\n\nDictated note:\n' + finalTranscript;
+
+    const gRes = await fetch('https://api.openai.com/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Authorization': 'Bearer ' + getApiKey(),
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        model: 'gpt-4o',
+        max_tokens: 2000,
+        messages: [
+          {role: 'system', content: GPT_SYSTEM_PROMPT},
+          {role: 'user',   content: userPrompt}
+        ]
+      })
+    });
+    if(gRes.status === 401){ throw new Error('Invalid API key — check Settings'); }
+    if(!gRes.ok){
+      const e = await gRes.json().catch(()=>({}));
+      throw new Error('AI error ' + gRes.status + ': ' + (e.error?.message||'unknown'));
+    }
+    const gData = await gRes.json();
+    let raw = (gData.choices?.[0]?.message?.content || '').trim();
+    console.log('AI raw response:', raw.substring(0,300));
+
+    // Strip markdown fences
+    raw = raw.replace(/^```json\s*/i,'').replace(/^```\s*/,'').replace(/\s*```$/,'').trim();
+    // Find JSON boundaries
+    const j1 = raw.indexOf('{'), j2 = raw.lastIndexOf('}');
+    if(j1 === -1 || j2 === -1) throw new Error('AI did not return valid JSON. Got: ' + raw.substring(0,80));
+    raw = raw.substring(j1, j2 + 1);
+
+    let sections;
+    try { sections = JSON.parse(raw); }
+    catch(e){ throw new Error('Could not parse AI response as JSON'); }
+
+    console.log('Sections returned:', Object.keys(sections));
+
+    // Step 3: Populate each section — APPEND to existing content
+    if(step) step.textContent = 'Filling sections...';
+    let filled = 0;
+    t.sections.forEach((s, i) => {
+      const val = (sections[s.id] || '').trim();
+      if(val && val !== 'Not dictated'){
+        const existing = (noteData[s.id] || '').trim();
+        const merged = existing ? existing + '\n' + val : val;
+        noteData[s.id] = merged;
+        filled++;
+        const nb = document.getElementById('nb-' + s.id);
+        if(nb){
+          setTimeout(() => {
+            nb.textContent = merged;
+            nb.classList.add('just-filled');
+            setTimeout(() => nb.classList.remove('just-filled'), 600);
+          }, i * 100);
+        }
+        updateSectionStatus(s.id);
+      }
+    });
+
+    setTimeout(() => {
+      updateProgress();
+      checkNoteEmpty();
+    }, t.sections.length * 100 + 100);
+
+    if(filled === 0){
+      showToast('AI returned no matching sections — check console for details');
+    } else {
+      showToast(filled + ' section' + (filled===1?'':'s') + ' filled — review and edit');
+    }
+
+  } catch(err){
+    console.error('processFullDictation error:', err);
+    showToast('Error: ' + err.message);
+  }
+
+  if(overlay) overlay.classList.remove('show');
+  singleAudioChunks = [];
+  setSingleUI('idle');
+  singleRecording = false;
+  stopTimer();
+}
+
+// == DEMO FULL DICTATION ==
+function startDemoFullDictation(){
+  const demoFullText = 'Headache started 2 months back. Past medical history hypertension. Allergies penicillin. Current medication tablet amlodipine 5 mg. Neurological examination no lateralization, GCS 15. Investigation CT brain done, shows subarachnoid hemorrhage. Plan admit in ICU, neurosurgery referral.';
+  let idx = 0;
+  const preview = document.getElementById('transcriptPreview');
+  preview.classList.add('show');
+  let typed = '';
+  const typeInterval = setInterval(()=>{
+    if(idx < demoFullText.length){
+      typed += demoFullText[idx++];
+      preview.textContent = typed;
+    } else {
+      clearInterval(typeInterval);
+      stopSingleDictate();
+      // Demo: process with fake transcript
+      setTimeout(()=> processDemoResult(demoFullText), 500);
+    }
+  }, 30);
+}
+
+function processDemoResult(transcript){
+  const overlay = document.getElementById('aiOverlay');
+  const step = document.getElementById('aiStep');
+  overlay.classList.add('show');
+  const steps = ['Transcribing your dictation...','Reading your note...','Structuring into sections...','Applying corrections...'];
+  let si = 0;
+  const stepInterval = setInterval(()=>{
+    if(si < steps.length){ step.textContent = steps[si++]; }
+    else {
+      clearInterval(stepInterval);
+      // Populate demo results
+      const t = templates[currentTemplate];
+      const demoResult = {
+        cc:'Headache started 2 months back.',
+        pmh:'Hypertension.',
+        allergy:'Penicillin allergy.',
+        meds:'Tablet Amlodipine 5 mg.',
+        exam:'Neurological examination: no lateralisation. GCS 15.',
+        inv:'CT Brain done ? shows subarachnoid haemorrhage.',
+        plan:'Admit in ICU. Neurosurgery referral.',
+      };
+      t.sections.forEach((s,i)=>{
+        const val = demoResult[s.id];
+        if(val){
+          noteData[s.id] = val;
+          const nb = document.getElementById('nb-'+s.id);
+          if(nb){
+            setTimeout(()=>{
+              nb.textContent = val;
+              nb.classList.add('just-filled');
+              setTimeout(()=>nb.classList.remove('just-filled'), 600);
+              updateSectionStatus(s.id);
+              updateProgress();
+              checkNoteEmpty();
+            }, i * 150);
+          }
+        }
+      });
+      updateProgress();
+      checkNoteEmpty();
+      document.getElementById('transcriptPreview').classList.remove('show');
+      overlay.classList.remove('show');
+      showToast('AI has structured your note ? review and edit');
+    }
+  }, 700);
+}
+
+// == PRINT ==
+function saveToFiles(){
+  const t = templates[currentTemplate];
+  const n = document.getElementById('patName').value.trim();
+  const m = document.getElementById('patMrd').value.trim();
+  const a = document.getElementById('patAge').value.trim();
+  const dateStr = new Date().toLocaleDateString('en-IN',{day:'2-digit',month:'long',year:'numeric'});
+  const timeStr = new Date().toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'});
+
+  let txt = 'VISIT NOTE\n';
+  txt += '='.repeat(50) + '\n';
+  if(pseudoMode && sessionToken){
+    txt += 'Token ID : ' + sessionToken + '\n';
+    txt += 'Age/Sex  : ' + a + '\n';
+  } else {
+    txt += 'Patient  : ' + (n||'--') + '\n';
+    txt += 'UHID     : ' + (m||'--') + '\n';
+    txt += 'Age/Sex  : ' + (a||'--') + '\n';
+  }
+  txt += 'Date     : ' + dateStr + ' at ' + timeStr + '\n';
+  txt += 'Physician: '+getDoctorName()+'\n';
+  txt += '='.repeat(50) + '\n\n';
+
+  t.sections.forEach(s => {
+    const val = noteData[s.id];
+    txt += s.title.toUpperCase() + '\n';
+    txt += (val && val.trim()) ? val.trim() : 'Not dictated';
+    txt += '\n\n';
+  });
+
+  if(pseudoMode) txt += '\n---\nDe-identified note. Link token '+sessionToken+' to patient record in EMR.\n';
+
+  // Create file and trigger download — on iPad this goes to Files app
+  const blob = new Blob([txt], {type:'text/plain'});
+  const url = URL.createObjectURL(blob);
+  const a2 = document.createElement('a');
+  const safeName = (pseudoMode ? sessionToken : (n||'note')).replace(/[^a-zA-Z0-9]/g,'-');
+  a2.href = url;
+  a2.download = 'WOYZ-' + safeName + '-' + new Date().toISOString().slice(0,10) + '.txt';
+  document.body.appendChild(a2);
+  a2.click();
+  document.body.removeChild(a2);
+  URL.revokeObjectURL(url);
+  showToast('Saved to Files app');
+}
+
+function printNote(){
+  const t = templates[currentTemplate];
+  const n = document.getElementById('patName').value;
+  const m = document.getElementById('patMrd').value;
+  const a = document.getElementById('patAge').value;
+  let html = '<html><head><title>Visit Note</title><style>';
+  html += 'body{font-family:Georgia,serif;max-width:700px;margin:40px auto;color:#111;line-height:1.7;}';
+  html += 'h1{font-size:22px;font-weight:400;margin-bottom:4px;}';
+  html += '.meta{font-size:13px;color:#666;margin-bottom:28px;padding-bottom:16px;border-bottom:1px solid #ddd;}';
+  html += '.sec-title{font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#2563a8;margin-bottom:6px;margin-top:20px;}';
+  html += '.sec-body{font-size:14px;line-height:1.8;color:#374151;white-space:pre-line;}';
+  html += '.back-btn{display:inline-flex;align-items:center;gap:6px;padding:9px 18px;background:#1c2b3a;color:white;border:none;border-radius:8px;font-family:sans-serif;font-size:13px;font-weight:600;cursor:pointer;margin-bottom:24px;text-decoration:none;}';
+  html += '@media print{.no-print{display:none!important;}}';
+  html += '</style></head><body>';
+  html += '<div class="no-print"><button class="back-btn" onclick="window.close()">&#8592; Back to WOYZ</button></div>';
+  html += '<h1>Visit Note</h1>';
+  html += '<div class="meta">'+n+' &middot; '+a+' &middot; UHID: '+m+'<br>';
+  html += new Date().toLocaleDateString('en-IN',{day:'2-digit',month:'long',year:'numeric'});
+  html += ' &middot; ' + getDoctorName() + '</div>';
+  t.sections.forEach(s=>{
+    if(noteData[s.id]&&noteData[s.id].trim()){
+      html += '<div class="sec-title">'+s.title+'</div>';
+      html += '<div class="sec-body">'+noteData[s.id].trim()+'</div>';
+    }
+  });
+  html += '</body></html>';
+  const w = window.open('','_blank');
+  w.document.write(html);
+  w.document.close();
+  w.focus();
+  setTimeout(()=>w.print(), 500);
+}
+
+// Call init and also force loadTemplate after a short delay as backup
+
+// Firebase Firestore for cloud note sync
+
+// ── Firestore note operations ──
+async function cloudSave(note){
+  if(!fbDb) return;
+  try {
+    await fbDb.collection('doctors').doc(DEVICE_ID)
+      .collection('notes').doc(note.id)
+      .set(Object.assign({},note,{updatedAt:firebase.firestore.FieldValue.serverTimestamp()}));
+  } catch(e){console.error('Cloud save error:',e);}
+}
+
+async function cloudLoad(){
+  if(!fbDb) return null;
+  try {
+    var snap=await fbDb.collection('doctors').doc(DEVICE_ID)
+      .collection('notes').orderBy('ts','desc').limit(100).get();
+    return snap.docs.map(function(d){return d.data();});
+  } catch(e){return null;}
+}
+
+async function cloudDelete(id){
+  if(!fbDb) return;
+  try {
+    await fbDb.collection('doctors').doc(DEVICE_ID)
+      .collection('notes').doc(id).delete();
+  } catch(e){}
+}
+
+init();
+setTimeout(function(){
+  const list = document.getElementById('sectionsList');
+  if(list && list.children.length === 0){
+    loadTemplate('stroke');
+  }
+}, 300);
+</script>
+
+
+
+</body></html>
